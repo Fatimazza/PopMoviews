@@ -1,10 +1,13 @@
 package com.fatimazza.popmoviews.popmoviews;
 
+import com.squareup.picasso.Picasso;
+
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -31,6 +34,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
     public void onBindViewHolder(MoviesAdapterViewHolder holder, int position) {
         String movieData = mMoviesData[position];
         holder.mMovieTitle.setText(movieData);
+
+        Picasso.with(holder.mMovieThumbnail.getContext()).load("http://i.imgur.com/DvpvklR.png").into(holder.mMovieThumbnail);
     }
 
     @Override
@@ -47,10 +52,12 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
     class MoviesAdapterViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView mMovieTitle;
+        private final ImageView mMovieThumbnail;
 
         public MoviesAdapterViewHolder(View itemView) {
             super(itemView);
             mMovieTitle = itemView.findViewById(R.id.tvMovieTitle);
+            mMovieThumbnail = itemView.findViewById(R.id.ivMovieThumbnail);
         }
     }
 
