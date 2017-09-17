@@ -13,7 +13,8 @@ import android.widget.TextView;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdapterViewHolder>{
 
-    private String [] mMoviesData = { "Movie1", "Movie2", "Movie3" };
+    private String [] mMoviesData = { "Movie1", "Movie2", "Movie3",
+        "Movie1", "Movie2", "Movie3", "Movie1", "Movie2", "Movie3" };
 
     @Override
     public MoviesAdapterViewHolder onCreateViewHolder(ViewGroup parent,
