@@ -56,11 +56,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
 
         private final TextView mMovieTitle;
         private final ImageView mMovieThumbnail;
+        private final TextView mMovieVoteAverage;
 
         public MoviesAdapterViewHolder(View itemView) {
             super(itemView);
-            mMovieTitle = itemView.findViewById(R.id.tvMovieTitle);
-            mMovieThumbnail = itemView.findViewById(R.id.ivMovieThumbnail);
+            mMovieTitle = itemView.findViewById(R.id.tv_grid_movies_title);
+            mMovieThumbnail = itemView.findViewById(R.id.iv_grid_movies_thumbnail);
+            mMovieVoteAverage = itemView.findViewById(R.id.tv_grid_movies_vote_average);
             itemView.setOnClickListener(this);
         }
 
