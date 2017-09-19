@@ -16,6 +16,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
     private String [] mMoviesData = { "Movie1", "Movie2", "Movie3",
         "Movie1", "Movie2", "Movie3", "Movie1", "Movie2", "Movie3" };
 
+    final private GridItemsClickListener mOnClickListener;
+
     @Override
     public MoviesAdapterViewHolder onCreateViewHolder(ViewGroup parent,
         int viewType) {
@@ -50,7 +52,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
         notifyDataSetChanged();
     }
 
-    class MoviesAdapterViewHolder extends RecyclerView.ViewHolder {
+    class MoviesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView mMovieTitle;
         private final ImageView mMovieThumbnail;
@@ -59,7 +61,22 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
             super(itemView);
             mMovieTitle = itemView.findViewById(R.id.tvMovieTitle);
             mMovieThumbnail = itemView.findViewById(R.id.ivMovieThumbnail);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onGridItemsClickListener(clickedPosition);
+        }
+    }
+
+    public interface GridItemsClickListener {
+        void onGridItemsClickListener (int clickedItemIndex);
+    }
+
+    public MoviesAdapter(GridItemsClickListener mOnClickListener) {
+        this.mOnClickListener = mOnClickListener;
     }
 
 }

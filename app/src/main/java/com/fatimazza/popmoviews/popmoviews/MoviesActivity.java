@@ -8,10 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class MoviesActivity extends AppCompatActivity {
+public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.GridItemsClickListener {
 
     private RecyclerView mMoviesRecyclerView;
     private MoviesAdapter mMoviesAdapter;
+
+    Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,18 @@ public class MoviesActivity extends AppCompatActivity {
         mMoviesRecyclerView.setLayoutManager(layoutManager);
         mMoviesRecyclerView.setHasFixedSize(true);
 
-        mMoviesAdapter = new MoviesAdapter();
+        mMoviesAdapter = new MoviesAdapter(this);
         mMoviesRecyclerView.setAdapter(mMoviesAdapter);
+    }
+
+    @Override
+    public void onGridItemsClickListener(int clickedItemIndex) {
+        if (null != mToast) {
+            mToast.cancel();
+        }
+
+        String toastMessage = "Item #" +clickedItemIndex +" clicked";
+        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
