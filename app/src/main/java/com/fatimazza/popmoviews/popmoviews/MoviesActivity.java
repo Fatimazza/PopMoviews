@@ -1,5 +1,7 @@
 package com.fatimazza.popmoviews.popmoviews;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,8 +14,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     private RecyclerView mMoviesRecyclerView;
     private MoviesAdapter mMoviesAdapter;
-
-    Toast mToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +34,11 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     }
 
     @Override
-    public void onGridItemsClickListener(int clickedItemIndex) {
-        if (null != mToast) {
-            mToast.cancel();
-        }
-
-        String toastMessage = "Item #" +clickedItemIndex +" clicked";
-        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show();
+    public void onGridItemsClickListener(Context context, int clickedItemIndex) {
+        Class classDestination = MovieDetailActivity.class;
+        Intent intent = new Intent(context, classDestination);
+        intent.putExtra(Intent.EXTRA_TEXT, String.valueOf(clickedItemIndex));
+        startActivity(intent);
     }
 
     @Override
