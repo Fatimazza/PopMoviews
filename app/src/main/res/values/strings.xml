@@ -7,6 +7,6 @@
     <string name="item_movie_top_rated">Top Rated Movies</string>
 
     <string name="error_message">
-        An error has occurred. Please try again by clicking REFRESH
+        No Data can be displayed. Please check your internet connection.
     </string>
 </resources>

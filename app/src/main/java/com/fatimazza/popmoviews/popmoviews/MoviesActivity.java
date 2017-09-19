@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.GridItemsClickListener {
@@ -15,12 +16,18 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     private RecyclerView mMoviesRecyclerView;
     private MoviesAdapter mMoviesAdapter;
 
+    private TextView mTextErrorMessage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
+        initComponent();
+    }
 
+    private void initComponent() {
         mMoviesRecyclerView = (RecyclerView) findViewById(R.id.rvMovies);
+        mTextErrorMessage = (TextView) findViewById(R.id.tv_error_message_display);
 
         int numOfGridColumns = 3;
         GridLayoutManager layoutManager =
