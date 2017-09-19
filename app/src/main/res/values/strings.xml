@@ -5,4 +5,8 @@
 
     <string name="item_movie_popular">Popular Movies</string>
     <string name="item_movie_top_rated">Top Rated Movies</string>
+
+    <string name="error_message">
+        An error has occurred. Please try again by clicking REFRESH
+    </string>
 </resources>
