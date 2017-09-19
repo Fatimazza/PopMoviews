@@ -2,12 +2,15 @@ package com.fatimazza.popmoviews.popmoviews;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
         initComponent();
+        displayMoviesData();
     }
 
     private void initComponent() {
@@ -38,6 +42,23 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
         mMoviesAdapter = new MoviesAdapter(this);
         mMoviesRecyclerView.setAdapter(mMoviesAdapter);
+    }
+
+    private void displayMoviesData() {
+        if (!isOnline()){
+            mTextErrorMessage.setVisibility(View.VISIBLE);
+            mMoviesRecyclerView.setVisibility(View.GONE);
+        } else {
+            mTextErrorMessage.setVisibility(View.GONE);
+            mMoviesRecyclerView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+            (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @Override
