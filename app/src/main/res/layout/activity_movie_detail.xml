@@ -1,68 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:layout_margin="16dp" >
+    android:layout_width="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_movie_poster"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:background="@color/grey"/>
-
-    <TextView
-        android:id="@+id/tv_movie_title"
+    <RelativeLayout
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/iv_movie_poster"
-        android:layout_alignParentRight="true"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_margin="8dp"
-        android:text="Title"
-        tools:text="Title"/>
+        android:layout_margin="16dp">
 
-    <TextView
-        android:id="@+id/tv_movie_release_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/iv_movie_poster"
-        android:layout_below="@id/tv_movie_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_margin="8dp"
-        android:text="24-01-1988"
-        tools:text="24-01-1988"/>
+        <ImageView
+            android:id="@+id/iv_movie_poster"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:background="@color/grey"/>
 
-    <ImageView
-        android:id="@+id/iv_star"
-        android:src="@drawable/ic_star"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_toRightOf="@id/iv_movie_poster"
-        android:layout_below="@id/tv_movie_release_date"
-        android:layout_margin="8dp" />
+        <TextView
+            android:id="@+id/tv_movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_movie_poster"
+            android:layout_alignParentRight="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_margin="8dp"
+            android:text="Title"
+            tools:text="Title"/>
 
-    <TextView
-        android:id="@+id/tv_movie_vote_average"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_toRightOf="@id/iv_star"
-        android:layout_below="@id/tv_movie_release_date"
-        android:textSize="24dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_margin="8dp"
-        android:text="6.7"
-        tools:text="6.7"/>
+        <TextView
+            android:id="@+id/tv_movie_release_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_movie_poster"
+            android:layout_below="@id/tv_movie_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_margin="8dp"
+            android:text="24-01-1988"
+            tools:text="24-01-1988"/>
 
-    <TextView
-        android:id="@+id/tv_movie_synopsis"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_movie_poster"
-        android:layout_margin="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:text="This is the movie synopsis"
-        tools:text="This is the movie synopsis"/>
+        <ImageView
+            android:id="@+id/iv_star"
+            android:src="@drawable/ic_star"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/iv_movie_poster"
+            android:layout_below="@id/tv_movie_release_date"
+            android:layout_margin="8dp"/>
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_movie_vote_average"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/iv_star"
+            android:layout_below="@id/tv_movie_release_date"
+            android:textSize="24dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_margin="8dp"
+            android:text="6.7"
+            tools:text="6.7"/>
+
+        <TextView
+            android:id="@+id/tv_movie_synopsis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_movie_poster"
+            android:layout_margin="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="This is the movie synopsis"
+            tools:text="This is the movie synopsis"/>
+
+    </RelativeLayout>
+
+</ScrollView>
