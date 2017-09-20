@@ -2,10 +2,13 @@ package com.fatimazza.popmoviews.popmoviews.activity;
 
 import com.fatimazza.popmoviews.popmoviews.R;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
+import com.fatimazza.popmoviews.popmoviews.utils.Constant;
+import com.squareup.picasso.Picasso;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -15,6 +18,10 @@ public class MovieDetailActivity extends AppCompatActivity {
     private MovieDetailDao mMovieDetail;
 
     TextView tvMovieTitle;
+    TextView tvMovieReleaseDate;
+    TextView tvMovieVoteAverage;
+    TextView tvMovieSynosis;
+    ImageView ivMoviePoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +29,25 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
 
         tvMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
+        tvMovieReleaseDate = (TextView) findViewById(R.id.tv_movie_release_date);
+        tvMovieVoteAverage = (TextView) findViewById(R.id.tv_movie_vote_average);
+        tvMovieSynosis = (TextView) findViewById(R.id.tv_movie_synopsis);
+        ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
 
         Intent intent = getIntent();
         if (intent!= null) {
             if (intent.hasExtra(EXTRA_DETAIL)){
                 mMovieDetail = intent.getParcelableExtra(EXTRA_DETAIL);
                 tvMovieTitle.setText(mMovieDetail.getTitle());
+                tvMovieReleaseDate.setText(mMovieDetail.getRelease_date());
+                tvMovieVoteAverage.setText(String.valueOf(mMovieDetail.getVote_average()));
+                tvMovieSynosis.setText(mMovieDetail.getOverview());
+
+                String imagePath = Constant.MOVIES_POSTER_BASE_URL + mMovieDetail.getPoster_path();
+
+                Picasso.with(this)
+                    .load(imagePath)
+                    .into(ivMoviePoster);
             }
         }
     }

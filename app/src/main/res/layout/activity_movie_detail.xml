@@ -55,7 +55,7 @@
         tools:text="6.7"/>
 
     <TextView
-        android:id="@+id/tv_plot_synopsis"
+        android:id="@+id/tv_movie_synopsis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_movie_poster"
