@@ -78,6 +78,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            mLoadingIndicator.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -86,8 +87,14 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         }
 
         @Override
-        protected void onPostExecute(String[] strings) {
-            super.onPostExecute(strings);
+        protected void onPostExecute(String[] moviesData) {
+            mLoadingIndicator.setVisibility(View.GONE);
+            if (moviesData != null) {
+                showMoviesGridView();
+                mMoviesAdapter.setmMoviesData(moviesData);
+            } else {
+                showErrorMessage();
+            }
         }
     }
 
