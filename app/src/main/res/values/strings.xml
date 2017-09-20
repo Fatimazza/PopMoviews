@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">PopMoviews</string>
+
     <string name="movie_title">Movie Title</string>
-    <string name="movie_rating">0</string>
+    <string name="movie_rating">0.0</string>
+    <string name="movie_synopsis">This is the movie synopsis</string>
+    <string name="movie_release_date">24&#8211;01&#8211;1988</string>
 
     <string name="item_movie_popular">Popular Movies</string>
     <string name="item_movie_top_rated">Top Rated Movies</string>
