@@ -12,11 +12,14 @@ public class RetrofitHelper {
 
     private Retrofit mRetrofit;
 
+    private TheMoviesServices mMoviesServices;
+
     private RetrofitHelper() {
         mRetrofit = new Retrofit.Builder()
             .baseUrl(Constant.MOVIES_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+        mMoviesServices = mRetrofit.create(TheMoviesServices.class);
     }
 
     public static RetrofitHelper getInstance() {
@@ -24,6 +27,10 @@ public class RetrofitHelper {
             retrofitHelper = new RetrofitHelper();
         }
         return retrofitHelper;
+    }
+
+    public TheMoviesServices getMoviesServices() {
+        return mMoviesServices;
     }
 
 }
