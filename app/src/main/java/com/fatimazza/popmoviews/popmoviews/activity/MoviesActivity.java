@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,10 +178,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_sortby_popular:
-                Toast.makeText(this, "Menu " + getResources().getString(R.string.item_movie_popular), Toast.LENGTH_SHORT).show();
+                mMovieType = getResources().getString(R.string.item_movie_popular);
+                loadMoviesData();
                 return true;
             case R.id.action_sortby_toprated:
-                Toast.makeText(this, "Menu " + getResources().getString(R.string.item_movie_top_rated), Toast.LENGTH_SHORT).show();
+                mMovieType = getResources().getString(R.string.item_movie_top_rated);
+                loadMoviesData();
                 return true;
         }
         return super.onOptionsItemSelected(item);
