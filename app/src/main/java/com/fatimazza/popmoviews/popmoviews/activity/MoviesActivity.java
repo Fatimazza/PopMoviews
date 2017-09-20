@@ -3,6 +3,9 @@ package com.fatimazza.popmoviews.popmoviews.activity;
 
 import com.fatimazza.popmoviews.popmoviews.adapter.MoviesAdapter;
 import com.fatimazza.popmoviews.popmoviews.R;
+import com.fatimazza.popmoviews.popmoviews.network.MovieDao;
+import com.fatimazza.popmoviews.popmoviews.network.RetrofitHelper;
+import com.fatimazza.popmoviews.popmoviews.utils.Constant;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,12 +15,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.GridItemsClickListener {
 
@@ -61,7 +69,25 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     }
 
     private void callAPI() {
+        RetrofitHelper.getInstance().getMoviesServices()
+            .fetchTopRatedMovies(Constant.API_KEY_PARAM)
+            .enqueue(new Callback<MovieDao>() {
+                @Override
+                public void onResponse(Call<MovieDao> call, Response<MovieDao> response) {
+                    if (response.body() != null) {
+                        Log.d("retroSuccess ", response.body().getResults().get(0).getOverview());
+                        showMoviesGridView();
+                    } else {
+                        showErrorMessage();
+                    }
+                }
 
+                @Override
+                public void onFailure(Call<MovieDao> call, Throwable t) {
+                    Log.d("retroFailure ", t.getMessage());
+                    showErrorMessage();
+                }
+            });
     }
 
     public boolean isOnline() {
