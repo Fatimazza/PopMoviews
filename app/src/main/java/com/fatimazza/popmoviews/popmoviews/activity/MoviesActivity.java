@@ -85,7 +85,9 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                 @Override
                 public void onResponse(Call<MovieDao> call, Response<MovieDao> response) {
                     if (response.body() != null) {
-                        Log.d("retroSuccess ", response.body().getResults().get(0).getOverview());
+                        mDataMovies.clear();
+                        mDataMovies.addAll(response.body().getResults());
+                        mMoviesAdapter.notifyDataSetChanged();
                         showMoviesGridView();
                     } else {
                         showErrorMessage();
