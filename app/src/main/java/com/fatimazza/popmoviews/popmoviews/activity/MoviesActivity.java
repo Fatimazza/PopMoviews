@@ -69,6 +69,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     }
 
     private void callAPI() {
+
+        mLoadingIndicator.setVisibility(View.VISIBLE);
+        mMoviesRecyclerView.setVisibility(View.GONE);
+
         RetrofitHelper.getInstance().getMoviesServices()
             .fetchTopRatedMovies(Constant.API_KEY_PARAM)
             .enqueue(new Callback<MovieDao>() {
@@ -80,12 +84,14 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                     } else {
                         showErrorMessage();
                     }
+                    mLoadingIndicator.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onFailure(Call<MovieDao> call, Throwable t) {
                     Log.d("retroFailure ", t.getMessage());
                     showErrorMessage();
+                    mLoadingIndicator.setVisibility(View.GONE);
                 }
             });
     }
