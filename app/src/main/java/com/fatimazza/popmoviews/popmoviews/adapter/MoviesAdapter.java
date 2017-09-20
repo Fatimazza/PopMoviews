@@ -1,6 +1,7 @@
 package com.fatimazza.popmoviews.popmoviews.adapter;
 
 import com.fatimazza.popmoviews.popmoviews.R;
+import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -11,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdapterViewHolder>{
 
-    private String [] mMoviesData = { "Movie1", "Movie2", "Movie3",
-        "Movie1", "Movie2", "Movie3", "Movie1", "Movie2", "Movie3" };
+    private List<MovieDetailDao> mDataMovies = new ArrayList<>();
 
     final private GridItemsClickListener mOnClickListener;
 
@@ -36,21 +39,19 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
 
     @Override
     public void onBindViewHolder(MoviesAdapterViewHolder holder, int position) {
-        String movieData = mMoviesData[position];
-        holder.mMovieTitle.setText(movieData);
 
-        Picasso.with(holder.mMovieThumbnail.getContext()).load("http://i.imgur.com/DvpvklR.png").into(holder.mMovieThumbnail);
+        final MovieDetailDao mDataItemMovie = mDataMovies.get(position);
+        final Context context = holder.mViewRoot.getContext();
+
+        holder.mMovieTitle.setText(mDataItemMovie.getTitle());
+
+        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(holder.mMovieThumbnail);
     }
 
     @Override
     public int getItemCount() {
-        if (null == mMoviesData) return 0;
-        return mMoviesData.length;
-    }
-
-    void setmMoviesData (String[] moviesData) {
-        mMoviesData = moviesData;
-        notifyDataSetChanged();
+        if (null == mDataMovies) return 0;
+        return mDataMovies.size();
     }
 
     class MoviesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -58,9 +59,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
         private final TextView mMovieTitle;
         private final ImageView mMovieThumbnail;
         private final TextView mMovieVoteAverage;
+        private final View mViewRoot;
 
         public MoviesAdapterViewHolder(View itemView) {
             super(itemView);
+            mViewRoot = itemView;
             mMovieTitle = itemView.findViewById(R.id.tv_grid_movies_title);
             mMovieThumbnail = itemView.findViewById(R.id.iv_grid_movies_thumbnail);
             mMovieVoteAverage = itemView.findViewById(R.id.tv_grid_movies_vote_average);
@@ -78,8 +81,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
         void onGridItemsClickListener (Context context, int clickedItemIndex);
     }
 
-    public MoviesAdapter(GridItemsClickListener mOnClickListener) {
+    public MoviesAdapter(GridItemsClickListener mOnClickListener, List<MovieDetailDao> mDataMovies) {
         this.mOnClickListener = mOnClickListener;
+        this.mDataMovies = mDataMovies;
     }
 
 }

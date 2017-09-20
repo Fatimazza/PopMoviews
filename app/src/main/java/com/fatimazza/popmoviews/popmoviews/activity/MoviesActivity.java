@@ -4,6 +4,7 @@ package com.fatimazza.popmoviews.popmoviews.activity;
 import com.fatimazza.popmoviews.popmoviews.adapter.MoviesAdapter;
 import com.fatimazza.popmoviews.popmoviews.R;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDao;
+import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.fatimazza.popmoviews.popmoviews.network.RetrofitHelper;
 import com.fatimazza.popmoviews.popmoviews.utils.Constant;
 
@@ -23,6 +24,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +38,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     private ProgressBar mLoadingIndicator;
     private TextView mTextErrorMessage;
+
+    private List<MovieDetailDao> mDataMovies = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         mMoviesRecyclerView.setLayoutManager(layoutManager);
         mMoviesRecyclerView.setHasFixedSize(true);
 
-        mMoviesAdapter = new MoviesAdapter(this);
+        mMoviesAdapter = new MoviesAdapter(this, mDataMovies);
         mMoviesRecyclerView.setAdapter(mMoviesAdapter);
     }
 
