@@ -1,5 +1,6 @@
-package com.fatimazza.popmoviews.popmoviews;
+package com.fatimazza.popmoviews.popmoviews.adapter;
 
+import com.fatimazza.popmoviews.popmoviews.R;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
