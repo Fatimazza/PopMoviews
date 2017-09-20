@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -70,6 +71,24 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     private void showErrorMessage() {
         mTextErrorMessage.setVisibility(View.VISIBLE);
         mMoviesRecyclerView.setVisibility(View.GONE);
+    }
+
+    public class FetchMoviesDataTask extends AsyncTask<String, Void, String[]> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String[] doInBackground(String... strings) {
+            return new String[0];
+        }
+
+        @Override
+        protected void onPostExecute(String[] strings) {
+            super.onPostExecute(strings);
+        }
     }
 
     @Override
