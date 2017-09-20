@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     private RecyclerView mMoviesRecyclerView;
     private MoviesAdapter mMoviesAdapter;
 
+    private ProgressBar mLoadingIndicator;
     private TextView mTextErrorMessage;
 
     @Override
@@ -31,6 +33,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     private void initComponent() {
         mMoviesRecyclerView = (RecyclerView) findViewById(R.id.rvMovies);
+        mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
         mTextErrorMessage = (TextView) findViewById(R.id.tv_error_message_display);
 
         int numOfGridColumns = 3;
