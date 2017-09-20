@@ -28,7 +28,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
         initComponent();
-        displayMoviesData();
+        loadMoviesData();
     }
 
     private void initComponent() {
@@ -47,13 +47,11 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         mMoviesRecyclerView.setAdapter(mMoviesAdapter);
     }
 
-    private void displayMoviesData() {
+    private void loadMoviesData() {
         if (!isOnline()){
-            mTextErrorMessage.setVisibility(View.VISIBLE);
-            mMoviesRecyclerView.setVisibility(View.GONE);
+            showErrorMessage();
         } else {
-            mTextErrorMessage.setVisibility(View.GONE);
-            mMoviesRecyclerView.setVisibility(View.VISIBLE);
+            showMoviesGridView();
         }
     }
 
@@ -62,6 +60,16 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
             (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    private void showMoviesGridView() {
+        mTextErrorMessage.setVisibility(View.GONE);
+        mMoviesRecyclerView.setVisibility(View.VISIBLE);
+    }
+
+    private void showErrorMessage() {
+        mTextErrorMessage.setVisibility(View.VISIBLE);
+        mMoviesRecyclerView.setVisibility(View.GONE);
     }
 
     @Override
