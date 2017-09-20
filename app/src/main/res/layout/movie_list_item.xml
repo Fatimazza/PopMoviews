@@ -4,22 +4,21 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
-    android:padding="5dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp">
+    android:gravity="center_horizontal"
+    android:padding="2dp" >
 
     <ImageView
         android:id="@+id/iv_grid_movies_thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:background="@color/grey"/>
 
     <TextView
         android:id="@+id/tv_grid_movies_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textAlignment="center"
         android:text="@string/movie_title"/>
 
     <LinearLayout
@@ -37,6 +36,8 @@
             android:id="@+id/tv_grid_movies_vote_average"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textSize="15sp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:text="@string/movie_rating"/>
 
