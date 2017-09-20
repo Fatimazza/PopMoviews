@@ -78,13 +78,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
 
         @Override
         public void onClick(View view) {
-            int clickedPosition = getAdapterPosition();
-            mOnClickListener.onGridItemsClickListener(view.getContext(), clickedPosition);
+            MovieDetailDao movieDetail = mDataMovies.get(getAdapterPosition());
+            mOnClickListener.onGridItemsClickListener(view.getContext(), movieDetail);
         }
     }
 
     public interface GridItemsClickListener {
-        void onGridItemsClickListener (Context context, int clickedItemIndex);
+        void onGridItemsClickListener (Context context, MovieDetailDao movieDetailDao);
     }
 
     public MoviesAdapter(GridItemsClickListener mOnClickListener, List<MovieDetailDao> mDataMovies) {

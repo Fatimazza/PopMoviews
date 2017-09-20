@@ -122,10 +122,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     }
 
     @Override
-    public void onGridItemsClickListener(Context context, int clickedItemIndex) {
+    public void onGridItemsClickListener(Context context, MovieDetailDao movieDetail) {
         Class classDestination = MovieDetailActivity.class;
         Intent intent = new Intent(context, classDestination);
-        intent.putExtra(Intent.EXTRA_TEXT, String.valueOf(clickedItemIndex));
+        intent.putExtra(MovieDetailActivity.EXTRA_DETAIL, String.valueOf(movieDetail));
         startActivity(intent);
     }
 
