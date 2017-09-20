@@ -2,6 +2,7 @@ package com.fatimazza.popmoviews.popmoviews.adapter;
 
 import com.fatimazza.popmoviews.popmoviews.R;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
+import com.fatimazza.popmoviews.popmoviews.utils.Constant;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -44,8 +45,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
         final Context context = holder.mViewRoot.getContext();
 
         holder.mMovieTitle.setText(mDataItemMovie.getTitle());
+        holder.mMovieVoteAverage.setText(String.valueOf(mDataItemMovie.getVote_average()));
 
-        Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(holder.mMovieThumbnail);
+        String imagePath = Constant.MOVIES_POSTER_BASE_URL + mDataItemMovie.getPoster_path();
+
+        Picasso.with(context)
+            .load(imagePath)
+            .into(holder.mMovieThumbnail);
     }
 
     @Override
