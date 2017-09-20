@@ -41,10 +41,14 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     private List<MovieDetailDao> mDataMovies = new ArrayList<>();
 
+    private String mMovieType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
+        mMovieType = getResources().getString(R.string.item_movie_popular);
+
         initComponent();
         loadMoviesData();
     }
@@ -70,14 +74,46 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
             showErrorMessage();
         } else {
             showMoviesGridView();
-            callAPI();
+            callAPI(mMovieType);
         }
     }
 
-    private void callAPI() {
+    private void callAPI(String movieType) {
         showLoading();
+        if (movieType.equals(getResources().getString(R.string.item_movie_popular))){
+            loadPopularMovies();
+        } else if (movieType.equals(getResources().getString(R.string.item_movie_top_rated))) {
+            loadTopRatedMovies();
+        }
+    }
 
+    private void loadPopularMovies() {
+        RetrofitHelper.getInstance().getMoviesServices()
+            .fetchPopularMovies(Constant.API_KEY_PARAM)
+            .enqueue(new Callback<MovieDao>() {
+                @Override
+                public void onResponse(Call<MovieDao> call, Response<MovieDao> response) {
+                    if (response.body() != null) {
+                        mDataMovies.clear();
+                        mDataMovies.addAll(response.body().getResults());
+                        mMoviesAdapter.notifyDataSetChanged();
+                        showMoviesGridView();
+                    } else {
+                        showErrorMessage();
+                    }
+                    mLoadingIndicator.setVisibility(View.GONE);
+                }
 
+                @Override
+                public void onFailure(Call<MovieDao> call, Throwable t) {
+                    Log.d("retroFailure ", t.getMessage());
+                    showErrorMessage();
+                    mLoadingIndicator.setVisibility(View.GONE);
+                }
+            });
+    }
+
+    private void loadTopRatedMovies() {
         RetrofitHelper.getInstance().getMoviesServices()
             .fetchTopRatedMovies(Constant.API_KEY_PARAM)
             .enqueue(new Callback<MovieDao>() {
