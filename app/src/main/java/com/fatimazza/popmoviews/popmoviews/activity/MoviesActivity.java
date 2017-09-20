@@ -75,9 +75,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     }
 
     private void callAPI() {
+        showLoading();
 
-        mLoadingIndicator.setVisibility(View.VISIBLE);
-        mMoviesRecyclerView.setVisibility(View.GONE);
 
         RetrofitHelper.getInstance().getMoviesServices()
             .fetchTopRatedMovies(Constant.API_KEY_PARAM)
@@ -109,6 +108,11 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
             (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    private void showLoading() {
+        mLoadingIndicator.setVisibility(View.VISIBLE);
+        mMoviesRecyclerView.setVisibility(View.GONE);
     }
 
     private void showMoviesGridView() {
