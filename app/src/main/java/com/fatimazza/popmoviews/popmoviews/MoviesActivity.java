@@ -1,5 +1,7 @@
 package com.fatimazza.popmoviews.popmoviews;
 
+import org.json.JSONException;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -105,11 +107,20 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
                 Log.d(TAG, "JsonMovieResponse " + jsonMovieDetailResponse);
 
+                String[] simpleJsonMoviesData =
+                    MoviesJsonUtils.getSimpleMoviesStringFromJson(MoviesActivity.this, jsonMovieDetailResponse);
+
+                Log.d(TAG, "JsonMovieResponseSIMPLE - - " + simpleJsonMoviesData[0]);
+
+                return simpleJsonMoviesData;
+
             } catch (IOException e) {
                 e.printStackTrace();
+                return null;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
             }
-
-            return new String[0];
         }
 
         @Override
