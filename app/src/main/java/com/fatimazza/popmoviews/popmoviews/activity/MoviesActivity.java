@@ -138,7 +138,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
             });
     }
 
-    public boolean isOnline() {
+    private boolean isOnline() {
         ConnectivityManager cm =
             (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();

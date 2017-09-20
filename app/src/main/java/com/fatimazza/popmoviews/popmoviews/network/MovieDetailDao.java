@@ -37,7 +37,7 @@ public class MovieDetailDao implements Parcelable {
         return overview;
     }
 
-    protected MovieDetailDao(Parcel in) {
+    private MovieDetailDao(Parcel in) {
         id = in.readInt();
         vote_average = in.readDouble();
         title = in.readString();

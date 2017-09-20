@@ -15,13 +15,11 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_DETAIL = "movie_detail";
 
-    private MovieDetailDao mMovieDetail;
-
-    TextView tvMovieTitle;
-    TextView tvMovieReleaseDate;
-    TextView tvMovieVoteAverage;
-    TextView tvMovieSynosis;
-    ImageView ivMoviePoster;
+    private TextView tvMovieTitle;
+    private TextView tvMovieReleaseDate;
+    private TextView tvMovieVoteAverage;
+    private TextView tvMovieSynosis;
+    private ImageView ivMoviePoster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent!= null) {
             if (intent.hasExtra(EXTRA_DETAIL)){
-                mMovieDetail = intent.getParcelableExtra(EXTRA_DETAIL);
+                MovieDetailDao mMovieDetail = intent.getParcelableExtra(EXTRA_DETAIL);
                 tvMovieTitle.setText(mMovieDetail.getTitle());
                 tvMovieReleaseDate.setText(mMovieDetail.getRelease_date());
                 tvMovieVoteAverage.setText(String.valueOf(mMovieDetail.getVote_average()));

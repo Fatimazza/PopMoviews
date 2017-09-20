@@ -10,12 +10,10 @@ public class RetrofitHelper {
 
     private static RetrofitHelper retrofitHelper;
 
-    private Retrofit mRetrofit;
-
     private TheMoviesServices mMoviesServices;
 
     private RetrofitHelper() {
-        mRetrofit = new Retrofit.Builder()
+        Retrofit mRetrofit = new Retrofit.Builder()
             .baseUrl(Constant.MOVIES_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
