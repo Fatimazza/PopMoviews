@@ -12,7 +12,8 @@
     <ImageView
         android:id="@+id/iv_grid_movies_thumbnail"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"/>
+        android:layout_height="100dp"
+        android:background="@color/grey"/>
 
     <TextView
         android:id="@+id/tv_grid_movies_title"

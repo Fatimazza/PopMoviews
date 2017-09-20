@@ -9,7 +9,8 @@
     <ImageView
         android:id="@+id/iv_movie_poster"
         android:layout_width="150dp"
-        android:layout_height="200dp"/>
+        android:layout_height="200dp"
+        android:background="@color/grey"/>
 
     <TextView
         android:id="@+id/tv_movie_title"

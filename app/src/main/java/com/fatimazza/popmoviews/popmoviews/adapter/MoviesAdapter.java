@@ -51,6 +51,8 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
 
         Picasso.with(context)
             .load(imagePath)
+            .placeholder(R.color.grey)
+            .error(R.color.grey)
             .into(holder.mMovieThumbnail);
     }
 
