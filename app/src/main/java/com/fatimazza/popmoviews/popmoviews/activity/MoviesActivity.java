@@ -1,4 +1,8 @@
-package com.fatimazza.popmoviews.popmoviews;
+package com.fatimazza.popmoviews.popmoviews.activity;
+
+
+import com.fatimazza.popmoviews.popmoviews.adapter.MoviesAdapter;
+import com.fatimazza.popmoviews.popmoviews.R;
 
 import android.content.Context;
 import android.content.Intent;
@@ -52,7 +56,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
             showErrorMessage();
         } else {
             showMoviesGridView();
+            callAPI();
         }
+    }
+
+    private void callAPI() {
+
     }
 
     public boolean isOnline() {

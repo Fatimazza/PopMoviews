@@ -1,4 +1,6 @@
-package com.fatimazza.popmoviews.popmoviews;
+package com.fatimazza.popmoviews.popmoviews.activity;
+
+import com.fatimazza.popmoviews.popmoviews.R;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
