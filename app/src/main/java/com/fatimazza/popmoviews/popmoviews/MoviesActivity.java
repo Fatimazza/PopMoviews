@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +17,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.URL;
+
 public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.GridItemsClickListener {
+
+    private static final String TAG = MoviesActivity.class.getSimpleName();
 
     private RecyclerView mMoviesRecyclerView;
     private MoviesAdapter mMoviesAdapter;
@@ -53,6 +59,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
             showErrorMessage();
         } else {
             showMoviesGridView();
+            String movieId = "211672";
+            new FetchMoviesDataTask().execute(movieId);
         }
     }
 
@@ -82,7 +90,25 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         }
 
         @Override
-        protected String[] doInBackground(String... strings) {
+        protected String[] doInBackground(String... params) {
+
+            if (params.length == 0) {
+                return null;
+            }
+
+            String movieId = params[0];
+            URL moviesDataRequestURL = NetworkUtils.buildURL(movieId);
+
+            try {
+                String jsonMovieDetailResponse =
+                    NetworkUtils.getResponseFromHttpUrl(moviesDataRequestURL);
+
+                Log.d(TAG, "JsonMovieResponse " + jsonMovieDetailResponse);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             return new String[0];
         }
 
