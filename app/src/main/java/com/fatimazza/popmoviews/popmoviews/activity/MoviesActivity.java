@@ -1,12 +1,12 @@
 package com.fatimazza.popmoviews.popmoviews.activity;
 
 
+import com.fatimazza.popmoviews.popmoviews.BuildConfig;
 import com.fatimazza.popmoviews.popmoviews.adapter.MoviesAdapter;
 import com.fatimazza.popmoviews.popmoviews.R;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.fatimazza.popmoviews.popmoviews.network.RetrofitHelper;
-import com.fatimazza.popmoviews.popmoviews.utils.Constant;
 
 import android.content.Context;
 import android.content.Intent;
@@ -88,7 +88,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     private void loadPopularMovies() {
         RetrofitHelper.getInstance().getMoviesServices()
-            .fetchPopularMovies(Constant.API_KEY_PARAM)
+            .fetchPopularMovies(BuildConfig.API_KEY)
             .enqueue(new Callback<MovieDao>() {
                 @Override
                 public void onResponse(Call<MovieDao> call, Response<MovieDao> response) {
@@ -114,7 +114,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     private void loadTopRatedMovies() {
         RetrofitHelper.getInstance().getMoviesServices()
-            .fetchTopRatedMovies(Constant.API_KEY_PARAM)
+            .fetchTopRatedMovies(BuildConfig.API_KEY)
             .enqueue(new Callback<MovieDao>() {
                 @Override
                 public void onResponse(Call<MovieDao> call, Response<MovieDao> response) {
