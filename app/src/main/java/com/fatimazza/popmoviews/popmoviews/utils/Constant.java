@@ -11,4 +11,6 @@ public class Constant {
 
     public final static String MOVIES_VIDEO_EXTENSION = "/0.jpg";
 
+    public final static String YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
+
 }

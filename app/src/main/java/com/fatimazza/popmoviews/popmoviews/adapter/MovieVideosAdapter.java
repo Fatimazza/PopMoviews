@@ -21,6 +21,8 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
 
     private List<MovieVideoDao> mMovieVideos = new ArrayList<>();
 
+    final private ItemsClickListener mOnClickListener;
+
     @Override
     public MovieVideosAdapterViewHolder onCreateViewHolder(ViewGroup parent,
         int viewType) {
@@ -61,7 +63,7 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
         return mMovieVideos.size();
     }
 
-    class MovieVideosAdapterViewHolder extends RecyclerView.ViewHolder {
+    class MovieVideosAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView mVideoTitle;
         private final ImageView mVideoThumbnail;
@@ -72,10 +74,22 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
             mViewRoot = itemView;
             mVideoTitle = itemView.findViewById(R.id.tv_video_title);
             mVideoThumbnail = itemView.findViewById(R.id.iv_video_thumbnail);
+            mViewRoot.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onItemsClickListener(mMovieVideos.get(clickedPosition).getKey());
         }
     }
 
-    public MovieVideosAdapter(List<MovieVideoDao> mMovieVideos) {
+    public MovieVideosAdapter(ItemsClickListener mOnClickListener, List<MovieVideoDao> mMovieVideos) {
+        this.mOnClickListener = mOnClickListener;
         this.mMovieVideos = mMovieVideos;
+    }
+
+    public interface ItemsClickListener {
+        void onItemsClickListener (String movieUrlKey);
     }
 }

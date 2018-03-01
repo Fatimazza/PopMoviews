@@ -13,6 +13,7 @@ import com.fatimazza.popmoviews.popmoviews.utils.Constant;
 import com.squareup.picasso.Picasso;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends AppCompatActivity implements MovieVideosAdapter.ItemsClickListener{
 
     public static final String EXTRA_DETAIL = "movie_detail";
 
@@ -85,7 +86,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         rvMovieVideos.setLayoutManager(mMovieVideosLayoutManager);
         rvMovieVideos.setHasFixedSize(true);
 
-        mMovieVideosAdapter = new MovieVideosAdapter(mDataVideo);
+        mMovieVideosAdapter = new MovieVideosAdapter(this, mDataVideo);
         rvMovieVideos.setAdapter(mMovieVideosAdapter);
     }
 
@@ -176,5 +177,15 @@ public class MovieDetailActivity extends AppCompatActivity {
                     //hide loading Indicator
                 }
             });
+    }
+
+    @Override
+    public void onItemsClickListener(String movieUrlKey) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getYoutubeUrl(movieUrlKey)));
+        startActivity(intent);
+    }
+
+    private String getYoutubeUrl(String key) {
+        return Constant.YOUTUBE_BASE_URL + key;
     }
 }
