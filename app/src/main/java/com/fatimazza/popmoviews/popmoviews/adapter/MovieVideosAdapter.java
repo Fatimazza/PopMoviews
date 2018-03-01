@@ -38,7 +38,10 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
     @Override
     public void onBindViewHolder(MovieVideosAdapterViewHolder holder,
         int position) {
+
         MovieVideoDao movieVideos = mMovieVideos.get(position);
+        Context context = holder.mViewRoot.getContext();
+
         holder.mVideoTitle.setText(movieVideos.getName());
 
         String imagePath = Constant.MOVIES_VIDEO_BASE_URL
@@ -55,9 +58,11 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
 
         private final TextView mVideoTitle;
         private final ImageView mVideoThumbnail;
+        private final View mViewRoot;
 
         public MovieVideosAdapterViewHolder(View itemView) {
             super(itemView);
+            mViewRoot = itemView;
             mVideoTitle = itemView.findViewById(R.id.tv_video_title);
             mVideoThumbnail = itemView.findViewById(R.id.iv_video_thumbnail);
         }
