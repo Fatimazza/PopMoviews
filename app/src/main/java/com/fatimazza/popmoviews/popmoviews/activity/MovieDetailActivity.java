@@ -27,26 +27,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
 
         initComponent();
+        loadDataFromIntent();
 
-        Intent intent = getIntent();
-        if (intent!= null) {
-            if (intent.hasExtra(EXTRA_DETAIL)){
-                MovieDetailDao mMovieDetail = intent.getParcelableExtra(EXTRA_DETAIL);
-                long movieId = mMovieDetail.getId();
-                tvMovieTitle.setText(mMovieDetail.getTitle());
-                tvMovieReleaseDate.setText(mMovieDetail.getRelease_date());
-                tvMovieVoteAverage.setText(String.valueOf(mMovieDetail.getVote_average()));
-                tvMovieSynosis.setText(mMovieDetail.getOverview());
-
-                String imagePath = Constant.MOVIES_POSTER_BASE_URL + mMovieDetail.getPoster_path();
-
-                Picasso.with(this)
-                    .load(imagePath)
-                    .placeholder(R.color.grey)
-                    .error(R.color.grey)
-                    .into(ivMoviePoster);
-            }
-        }
     }
 
     private void initComponent() {
@@ -55,5 +37,24 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvMovieVoteAverage = (TextView) findViewById(R.id.tv_movie_vote_average);
         tvMovieSynosis = (TextView) findViewById(R.id.tv_movie_synopsis);
         ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
+    }
+
+    private void loadDataFromIntent() {
+        Intent intent = getIntent();
+        if (null != intent && intent.hasExtra(EXTRA_DETAIL)) {
+            MovieDetailDao mMovieDetail = intent.getParcelableExtra(EXTRA_DETAIL);
+            tvMovieTitle.setText(mMovieDetail.getTitle());
+            tvMovieReleaseDate.setText(mMovieDetail.getRelease_date());
+            tvMovieVoteAverage.setText(String.valueOf(mMovieDetail.getVote_average()));
+            tvMovieSynosis.setText(mMovieDetail.getOverview());
+
+            String imagePath = Constant.MOVIES_POSTER_BASE_URL + mMovieDetail.getPoster_path();
+
+            Picasso.with(this)
+                .load(imagePath)
+                .placeholder(R.color.grey)
+                .error(R.color.grey)
+                .into(ivMoviePoster);
+        }
     }
 }
