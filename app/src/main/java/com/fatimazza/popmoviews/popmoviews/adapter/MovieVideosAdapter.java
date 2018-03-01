@@ -1,6 +1,10 @@
 package com.fatimazza.popmoviews.popmoviews.adapter;
 
+import com.fatimazza.popmoviews.popmoviews.R;
+
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,7 +16,16 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
     @Override
     public MovieVideosAdapterViewHolder onCreateViewHolder(ViewGroup parent,
         int viewType) {
-        return null;
+
+        Context context = parent.getContext();
+        int layoutIdForListMovieVideosItem = R.layout.movie_videos_list_item;
+        boolean shouldAttachToParentImmediately = false;
+
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(layoutIdForListMovieVideosItem, parent, shouldAttachToParentImmediately);
+
+        MovieVideosAdapterViewHolder viewHolder = new MovieVideosAdapterViewHolder(view);
+        return viewHolder;
     }
 
     @Override
