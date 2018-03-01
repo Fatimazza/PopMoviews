@@ -21,13 +21,18 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView tvMovieSynosis;
     private ImageView ivMoviePoster;
 
+    private long movieId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
+        movieId = 0;
+
         initComponent();
         loadDataFromIntent();
+        callMovieDetailAPI(movieId);
 
     }
 
@@ -55,6 +60,12 @@ public class MovieDetailActivity extends AppCompatActivity {
                 .placeholder(R.color.grey)
                 .error(R.color.grey)
                 .into(ivMoviePoster);
+
+            movieId = mMovieDetail.getId();
         }
+    }
+
+    private void callMovieDetailAPI(long movieId) {
+
     }
 }
