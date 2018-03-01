@@ -2,6 +2,7 @@ package com.fatimazza.popmoviews.popmoviews.activity;
 
 import com.fatimazza.popmoviews.popmoviews.BuildConfig;
 import com.fatimazza.popmoviews.popmoviews.R;
+import com.fatimazza.popmoviews.popmoviews.adapter.MovieVideosAdapter;
 import com.fatimazza.popmoviews.popmoviews.network.BaseListDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieReviewDao;
@@ -13,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
@@ -33,6 +35,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ImageView ivMoviePoster;
 
     private RecyclerView rvMovieVideos;
+    private MovieVideosAdapter mMovieVideosAdapter;
+    private LinearLayoutManager mMovieVideosLayoutManager;
 
     private long movieId;
 
@@ -44,6 +48,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         movieId = 0;
 
         initComponent();
+        initAdapters();
         loadDataFromIntent();
         callMovieDetailAPI(movieId);
 
@@ -56,6 +61,16 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvMovieSynosis = (TextView) findViewById(R.id.tv_movie_synopsis);
         ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
         rvMovieVideos = (RecyclerView) findViewById(R.id.rv_movie_videos);
+    }
+
+    private void initAdapters() {
+        mMovieVideosLayoutManager = new LinearLayoutManager(this);
+
+        rvMovieVideos.setLayoutManager(mMovieVideosLayoutManager);
+        rvMovieVideos.setHasFixedSize(true);
+
+        mMovieVideosAdapter = new MovieVideosAdapter();
+        rvMovieVideos.setAdapter(mMovieVideosAdapter);
     }
 
     private void loadDataFromIntent() {
