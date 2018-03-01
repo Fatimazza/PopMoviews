@@ -4,7 +4,7 @@ package com.fatimazza.popmoviews.popmoviews.activity;
 import com.fatimazza.popmoviews.popmoviews.BuildConfig;
 import com.fatimazza.popmoviews.popmoviews.adapter.MoviesAdapter;
 import com.fatimazza.popmoviews.popmoviews.R;
-import com.fatimazza.popmoviews.popmoviews.network.MovieDao;
+import com.fatimazza.popmoviews.popmoviews.network.BaseListDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.fatimazza.popmoviews.popmoviews.network.RetrofitHelper;
 
@@ -89,9 +89,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     private void loadPopularMovies() {
         RetrofitHelper.getInstance().getMoviesServices()
             .fetchPopularMovies(BuildConfig.API_KEY)
-            .enqueue(new Callback<MovieDao>() {
+            .enqueue(new Callback<BaseListDao<MovieDetailDao>>() {
                 @Override
-                public void onResponse(Call<MovieDao> call, Response<MovieDao> response) {
+                public void onResponse(Call<BaseListDao<MovieDetailDao>> call,
+                    Response<BaseListDao<MovieDetailDao>> response) {
                     if (response.body() != null) {
                         mDataMovies.clear();
                         mDataMovies.addAll(response.body().getResults());
@@ -104,7 +105,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                 }
 
                 @Override
-                public void onFailure(Call<MovieDao> call, Throwable t) {
+                public void onFailure(Call<BaseListDao<MovieDetailDao>> call, Throwable t) {
                     Log.d("retroFailure ", t.getMessage());
                     showErrorMessage();
                     mLoadingIndicator.setVisibility(View.GONE);
@@ -115,9 +116,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     private void loadTopRatedMovies() {
         RetrofitHelper.getInstance().getMoviesServices()
             .fetchTopRatedMovies(BuildConfig.API_KEY)
-            .enqueue(new Callback<MovieDao>() {
+            .enqueue(new Callback<BaseListDao<MovieDetailDao>>() {
                 @Override
-                public void onResponse(Call<MovieDao> call, Response<MovieDao> response) {
+                public void onResponse(Call<BaseListDao<MovieDetailDao>> call,
+                    Response<BaseListDao<MovieDetailDao>> response) {
                     if (response.body() != null) {
                         mDataMovies.clear();
                         mDataMovies.addAll(response.body().getResults());
@@ -130,7 +132,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                 }
 
                 @Override
-                public void onFailure(Call<MovieDao> call, Throwable t) {
+                public void onFailure(Call<BaseListDao<MovieDetailDao>> call, Throwable t) {
                     Log.d("retroFailure ", t.getMessage());
                     showErrorMessage();
                     mLoadingIndicator.setVisibility(View.GONE);

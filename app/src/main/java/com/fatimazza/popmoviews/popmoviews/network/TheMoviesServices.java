@@ -8,9 +8,9 @@ import retrofit2.http.Query;
 public interface TheMoviesServices {
 
     @GET("popular")
-    Call<MovieDao> fetchPopularMovies(@Query("api_key") String apiKey);
+    Call<BaseListDao<MovieDetailDao>> fetchPopularMovies(@Query("api_key") String apiKey);
 
     @GET("top_rated")
-    Call<MovieDao> fetchTopRatedMovies(@Query("api_key") String apiKey);
+    Call<BaseListDao<MovieDetailDao>> fetchTopRatedMovies(@Query("api_key") String apiKey);
 
 }

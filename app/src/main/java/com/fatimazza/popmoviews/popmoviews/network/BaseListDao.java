@@ -3,12 +3,12 @@ package com.fatimazza.popmoviews.popmoviews.network;
 
 import java.util.List;
 
-public class MovieDao {
+public class BaseListDao<T> {
 
     private int page;
     private int total_results;
     private int total_pages;
-    private List<MovieDetailDao> results;
+    private List<T> results;
 
     public int getPage() {
         return page;
@@ -22,7 +22,7 @@ public class MovieDao {
         return total_pages;
     }
 
-    public List<MovieDetailDao> getResults() {
+    public List<T> getResults() {
         return results;
     }
 }
