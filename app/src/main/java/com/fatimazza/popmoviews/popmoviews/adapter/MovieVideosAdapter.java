@@ -3,6 +3,7 @@ package com.fatimazza.popmoviews.popmoviews.adapter;
 import com.fatimazza.popmoviews.popmoviews.R;
 import com.fatimazza.popmoviews.popmoviews.network.MovieVideoDao;
 import com.fatimazza.popmoviews.popmoviews.utils.Constant;
+import com.squareup.picasso.Picasso;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -46,6 +47,12 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
 
         String imagePath = Constant.MOVIES_VIDEO_BASE_URL
             +movieVideos.getKey() +Constant.MOVIES_VIDEO_EXTENSION;
+
+        Picasso.with(context)
+            .load(imagePath)
+            .placeholder(R.color.grey)
+            .error(R.color.grey)
+            .into(holder.mVideoThumbnail);
     }
 
     @Override
