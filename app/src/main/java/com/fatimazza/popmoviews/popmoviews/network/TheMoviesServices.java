@@ -17,7 +17,11 @@ public interface TheMoviesServices {
         @Query("api_key") String apiKey);
 
     @GET("movie/{movie_id}/reviews")
-    Call<BaseListDao<MovieReviewDao>> getMovieReview(
+    Call<BaseListDao<MovieReviewDao>> loadMovieReview(
+        @Path("movie_id") long movieId, @Query("api_key") String apiKey);
+
+    @GET("movie/{movie_id}/videos")
+    Call<BaseListDao<MovieVideoDao>> loadMovieVideos(
         @Path("movie_id") long movieId, @Query("api_key") String apiKey);
 
 }
