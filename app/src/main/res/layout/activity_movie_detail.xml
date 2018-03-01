@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:ignore="ContentDescription" >
+    tools:ignore="ContentDescription">
 
     <RelativeLayout
         android:layout_height="wrap_content"
@@ -119,6 +119,13 @@
             android:textStyle="bold"
             android:text="@string/movie_reviews"
             android:layout_below="@id/view_separator2"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_movie_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_below="@id/tv_label_review"/>
 
     </RelativeLayout>
 

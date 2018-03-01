@@ -38,6 +38,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private MovieVideosAdapter mMovieVideosAdapter;
     private LinearLayoutManager mMovieVideosLayoutManager;
 
+    private RecyclerView rvMovieReviews;
+
     private long movieId;
 
     @Override
@@ -61,6 +63,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvMovieSynosis = (TextView) findViewById(R.id.tv_movie_synopsis);
         ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
         rvMovieVideos = (RecyclerView) findViewById(R.id.rv_movie_videos);
+        rvMovieReviews = (RecyclerView) findViewById(R.id.rv_movie_reviews);
     }
 
     private void initAdapters() {
