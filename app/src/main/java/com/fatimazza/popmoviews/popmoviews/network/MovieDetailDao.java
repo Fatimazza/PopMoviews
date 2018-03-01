@@ -6,14 +6,14 @@ import android.os.Parcelable;
 
 public class MovieDetailDao implements Parcelable {
 
-    private int id;
+    private long id;
     private double vote_average;
     private String title;
     private String poster_path;
     private String release_date;
     private String overview;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -38,7 +38,7 @@ public class MovieDetailDao implements Parcelable {
     }
 
     private MovieDetailDao(Parcel in) {
-        id = in.readInt();
+        id = in.readLong();
         vote_average = in.readDouble();
         title = in.readString();
         poster_path = in.readString();
@@ -65,7 +65,7 @@ public class MovieDetailDao implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        parcel.writeLong(id);
         parcel.writeDouble(vote_average);
         parcel.writeString(title);
         parcel.writeString(poster_path);

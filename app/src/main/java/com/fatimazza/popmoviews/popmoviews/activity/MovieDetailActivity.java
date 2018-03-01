@@ -32,6 +32,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         if (intent!= null) {
             if (intent.hasExtra(EXTRA_DETAIL)){
                 MovieDetailDao mMovieDetail = intent.getParcelableExtra(EXTRA_DETAIL);
+                long movieId = mMovieDetail.getId();
                 tvMovieTitle.setText(mMovieDetail.getTitle());
                 tvMovieReleaseDate.setText(mMovieDetail.getRelease_date());
                 tvMovieVoteAverage.setText(String.valueOf(mMovieDetail.getVote_average()));
