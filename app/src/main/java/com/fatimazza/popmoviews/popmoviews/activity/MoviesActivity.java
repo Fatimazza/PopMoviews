@@ -83,6 +83,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
             loadPopularMovies();
         } else if (movieType.equals(getResources().getString(R.string.item_movie_top_rated))) {
             loadTopRatedMovies();
+        } else if (movieType.equals(getResources().getString(R.string.item_movie_favorites))) {
+            //load Favorite Movies from database
         }
     }
 
@@ -185,6 +187,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                 return true;
             case R.id.action_sortby_toprated:
                 mMovieType = getResources().getString(R.string.item_movie_top_rated);
+                loadMoviesData();
+                return true;
+            case R.id.action_sortby_favorites:
+                mMovieType = getResources().getString(R.string.item_movie_favorites);
                 loadMoviesData();
                 return true;
         }

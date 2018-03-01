@@ -8,6 +8,7 @@
 
     <string name="item_movie_popular">Popular Movies</string>
     <string name="item_movie_top_rated">Top Rated Movies</string>
+    <string name="item_movie_favorites">Favorite Movies</string>
 
     <string name="error_message">
         No Data can be displayed. Please check your internet connection.
