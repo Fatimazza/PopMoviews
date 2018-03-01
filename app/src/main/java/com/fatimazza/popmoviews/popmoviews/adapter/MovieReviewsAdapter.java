@@ -19,7 +19,7 @@ public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapte
 
         Context context = parent.getContext();
         int layoutIdForListMovieReviewsItem = R.layout.movie_reviews_list_item;
-        boolean shouldAttachToParentImmediately = true;
+        boolean shouldAttachToParentImmediately = false;
 
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(layoutIdForListMovieReviewsItem, parent, shouldAttachToParentImmediately);

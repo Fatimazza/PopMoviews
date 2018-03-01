@@ -2,6 +2,7 @@ package com.fatimazza.popmoviews.popmoviews.activity;
 
 import com.fatimazza.popmoviews.popmoviews.BuildConfig;
 import com.fatimazza.popmoviews.popmoviews.R;
+import com.fatimazza.popmoviews.popmoviews.adapter.MovieReviewsAdapter;
 import com.fatimazza.popmoviews.popmoviews.adapter.MovieVideosAdapter;
 import com.fatimazza.popmoviews.popmoviews.network.BaseListDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
@@ -39,6 +40,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private LinearLayoutManager mMovieVideosLayoutManager;
 
     private RecyclerView rvMovieReviews;
+    private MovieReviewsAdapter mMovieReviewsAdapter;
+    private LinearLayoutManager mMovieReviewsLayoutManager;
 
     private long movieId;
 
@@ -67,6 +70,11 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void initAdapters() {
+        initVideosAdapter();
+        initReviewsAdapter();
+    }
+
+    private void initVideosAdapter() {
         mMovieVideosLayoutManager = new LinearLayoutManager(this);
 
         rvMovieVideos.setLayoutManager(mMovieVideosLayoutManager);
@@ -74,6 +82,16 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         mMovieVideosAdapter = new MovieVideosAdapter();
         rvMovieVideos.setAdapter(mMovieVideosAdapter);
+    }
+
+    private void initReviewsAdapter() {
+        mMovieReviewsLayoutManager = new LinearLayoutManager(this);
+
+        rvMovieReviews.setLayoutManager(mMovieReviewsLayoutManager);
+        rvMovieReviews.setHasFixedSize(true);
+
+        mMovieReviewsAdapter = new MovieReviewsAdapter();
+        rvMovieReviews.setAdapter(mMovieReviewsAdapter);
     }
 
     private void loadDataFromIntent() {
