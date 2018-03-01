@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapter.MovieReviewsAdapterViewHolder> {
 
@@ -30,7 +31,9 @@ public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapte
     @Override
     public void onBindViewHolder(MovieReviewsAdapterViewHolder holder,
         int position) {
-
+        String movieReviews = mMovieReviews[position];
+        holder.mVideoReview.setText(movieReviews);
+        holder.mVideoReviewAuthor.setText(movieReviews);
     }
 
     @Override
@@ -41,8 +44,13 @@ public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapte
 
     class MovieReviewsAdapterViewHolder extends RecyclerView.ViewHolder {
 
+        private final TextView mVideoReview;
+        private final TextView mVideoReviewAuthor;
+
         public MovieReviewsAdapterViewHolder(View itemView) {
             super(itemView);
+            mVideoReview = itemView.findViewById(R.id.tv_movie_review);
+            mVideoReviewAuthor = itemView.findViewById(R.id.tv_movie_review_author);
         }
     }
 

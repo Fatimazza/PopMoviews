@@ -7,6 +7,7 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/tv_movie_review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -15,6 +16,7 @@
         This is a sample of Review. This is a sample of Review"/>
 
     <TextView
+        android:id="@+id/tv_movie_review_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
