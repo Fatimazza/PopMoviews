@@ -7,4 +7,8 @@ public class Constant {
 
     public final static String MOVIES_POSTER_BASE_URL = "http://image.tmdb.org/t/p/w185";
 
+    public final static String MOVIES_VIDEO_BASE_URL = "http://img.youtube.com/vi/";
+
+    public final static String MOVIES_VIDEO_EXTENSION = "/0.jpg";
+
 }
