@@ -25,7 +25,9 @@
             android:layout_toEndOf="@id/iv_movie_poster"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:layout_margin="8dp"
             android:text="@string/movie_title"
             tools:text="Title"/>
@@ -74,6 +76,42 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:text="@string/movie_synopsis"
             tools:text="This is the movie synopsis"/>
+
+        <View
+            android:id="@+id/view_separator1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@id/tv_movie_synopsis"/>
+
+        <TextView
+            android:id="@+id/tv_label_videos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:text="@string/movie_videos"
+            android:layout_below="@id/view_separator1"/>
+
+        <View
+            android:id="@+id/view_separator2"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorPrimary"
+            android:layout_below="@id/tv_label_videos"/>
+
+        <TextView
+            android:id="@+id/tv_label_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:text="@string/movie_reviews"
+            android:layout_below="@id/view_separator2"/>
 
     </RelativeLayout>
 
