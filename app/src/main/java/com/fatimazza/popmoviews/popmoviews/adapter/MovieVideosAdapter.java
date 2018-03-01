@@ -1,6 +1,7 @@
 package com.fatimazza.popmoviews.popmoviews.adapter;
 
 import com.fatimazza.popmoviews.popmoviews.R;
+import com.fatimazza.popmoviews.popmoviews.network.MovieVideoDao;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.MovieVideosAdapterViewHolder> {
 
-    private String [] mMovieVideos = { "Video1", "Video2", "Video3" };
+    private List<MovieVideoDao> mMovieVideos = new ArrayList<>();
 
     @Override
     public MovieVideosAdapterViewHolder onCreateViewHolder(ViewGroup parent,
@@ -33,14 +37,14 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
     @Override
     public void onBindViewHolder(MovieVideosAdapterViewHolder holder,
         int position) {
-        String movieVideos = mMovieVideos[position];
-        holder.mVideoTitle.setText(movieVideos);
+        MovieVideoDao movieVideos = mMovieVideos.get(position);
+        holder.mVideoTitle.setText(movieVideos.getName());
     }
 
     @Override
     public int getItemCount() {
         if (null == mMovieVideos) return 0;
-        return mMovieVideos.length;
+        return mMovieVideos.size();
     }
 
     class MovieVideosAdapterViewHolder extends RecyclerView.ViewHolder {
@@ -55,4 +59,7 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
         }
     }
 
+    public MovieVideosAdapter(List<MovieVideoDao> mMovieVideos) {
+        this.mMovieVideos = mMovieVideos;
+    }
 }

@@ -21,6 +21,9 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,6 +41,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RecyclerView rvMovieVideos;
     private MovieVideosAdapter mMovieVideosAdapter;
     private LinearLayoutManager mMovieVideosLayoutManager;
+    private List<MovieVideoDao> mDataVideo = new ArrayList<>();
 
     private RecyclerView rvMovieReviews;
     private MovieReviewsAdapter mMovieReviewsAdapter;
@@ -80,7 +84,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         rvMovieVideos.setLayoutManager(mMovieVideosLayoutManager);
         rvMovieVideos.setHasFixedSize(true);
 
-        mMovieVideosAdapter = new MovieVideosAdapter();
+        mMovieVideosAdapter = new MovieVideosAdapter(mDataVideo);
         rvMovieVideos.setAdapter(mMovieVideosAdapter);
     }
 
@@ -152,6 +156,9 @@ public class MovieDetailActivity extends AppCompatActivity {
                 public void onResponse(Call<BaseListDao<MovieVideoDao>> call,
                     Response<BaseListDao<MovieVideoDao>> response) {
                     if (response.body() != null) {
+                        mDataVideo.clear();
+                        mDataVideo.addAll(response.body().getResults());
+                        mMovieVideosAdapter.notifyDataSetChanged();
                     } else {
                         //show Error Messages
                     }
