@@ -26,11 +26,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
 
-        tvMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
-        tvMovieReleaseDate = (TextView) findViewById(R.id.tv_movie_release_date);
-        tvMovieVoteAverage = (TextView) findViewById(R.id.tv_movie_vote_average);
-        tvMovieSynosis = (TextView) findViewById(R.id.tv_movie_synopsis);
-        ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
+        initComponent();
 
         Intent intent = getIntent();
         if (intent!= null) {
@@ -50,5 +46,13 @@ public class MovieDetailActivity extends AppCompatActivity {
                     .into(ivMoviePoster);
             }
         }
+    }
+
+    private void initComponent() {
+        tvMovieTitle = (TextView) findViewById(R.id.tv_movie_title);
+        tvMovieReleaseDate = (TextView) findViewById(R.id.tv_movie_release_date);
+        tvMovieVoteAverage = (TextView) findViewById(R.id.tv_movie_vote_average);
+        tvMovieSynosis = (TextView) findViewById(R.id.tv_movie_synopsis);
+        ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
     }
 }
