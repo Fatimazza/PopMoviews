@@ -1,6 +1,7 @@
 package com.fatimazza.popmoviews.popmoviews.adapter;
 
 import com.fatimazza.popmoviews.popmoviews.R;
+import com.fatimazza.popmoviews.popmoviews.network.MovieReviewDao;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapter.MovieReviewsAdapterViewHolder> {
 
-    private String [] mMovieReviews = { "Review1", "Review2", "Review3" };
+    private List<MovieReviewDao> mMovieReviews = new ArrayList<>();
 
     @Override
     public MovieReviewsAdapterViewHolder onCreateViewHolder(ViewGroup parent,
@@ -31,15 +35,15 @@ public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapte
     @Override
     public void onBindViewHolder(MovieReviewsAdapterViewHolder holder,
         int position) {
-        String movieReviews = mMovieReviews[position];
-        holder.mVideoReview.setText(movieReviews);
-        holder.mVideoReviewAuthor.setText(movieReviews);
+        MovieReviewDao movieReviews = mMovieReviews.get(position);
+        holder.mVideoReview.setText(movieReviews.getContent());
+        holder.mVideoReviewAuthor.setText(movieReviews.getAuthor());
     }
 
     @Override
     public int getItemCount() {
         if (null == mMovieReviews) return 0;
-        return mMovieReviews.length;
+        return mMovieReviews.size();
     }
 
     class MovieReviewsAdapterViewHolder extends RecyclerView.ViewHolder {
@@ -54,4 +58,7 @@ public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapte
         }
     }
 
+    public MovieReviewsAdapter(List<MovieReviewDao> mMovieReviews) {
+        this.mMovieReviews = mMovieReviews;
+    }
 }

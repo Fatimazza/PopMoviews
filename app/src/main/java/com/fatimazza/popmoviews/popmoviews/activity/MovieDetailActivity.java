@@ -46,6 +46,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private RecyclerView rvMovieReviews;
     private MovieReviewsAdapter mMovieReviewsAdapter;
     private LinearLayoutManager mMovieReviewsLayoutManager;
+    private List<MovieReviewDao> mDataReview = new ArrayList<>();
 
     private long movieId;
 
@@ -94,7 +95,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         rvMovieReviews.setLayoutManager(mMovieReviewsLayoutManager);
         rvMovieReviews.setHasFixedSize(true);
 
-        mMovieReviewsAdapter = new MovieReviewsAdapter();
+        mMovieReviewsAdapter = new MovieReviewsAdapter(mDataReview);
         rvMovieReviews.setAdapter(mMovieReviewsAdapter);
     }
 
@@ -133,6 +134,9 @@ public class MovieDetailActivity extends AppCompatActivity {
                 public void onResponse(Call<BaseListDao<MovieReviewDao>> call,
                     Response<BaseListDao<MovieReviewDao>> response) {
                     if (response.body() != null) {
+                        mDataReview.clear();
+                        mDataReview.addAll(response.body().getResults());
+                        mMovieReviewsAdapter.notifyDataSetChanged();
                     } else {
                         //show Error Messages
                     }
