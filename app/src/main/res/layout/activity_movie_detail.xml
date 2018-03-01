@@ -95,12 +95,19 @@
             android:text="@string/movie_videos"
             android:layout_below="@id/view_separator1"/>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_movie_videos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_below="@id/tv_label_videos"/>
+
         <View
             android:id="@+id/view_separator2"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/colorPrimary"
-            android:layout_below="@id/tv_label_videos"/>
+            android:layout_below="@id/rv_movie_videos"/>
 
         <TextView
             android:id="@+id/tv_label_review"

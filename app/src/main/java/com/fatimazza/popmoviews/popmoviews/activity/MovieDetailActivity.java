@@ -13,6 +13,7 @@ import com.squareup.picasso.Picasso;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView tvMovieVoteAverage;
     private TextView tvMovieSynosis;
     private ImageView ivMoviePoster;
+
+    private RecyclerView rvMovieVideos;
 
     private long movieId;
 
@@ -52,6 +55,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvMovieVoteAverage = (TextView) findViewById(R.id.tv_movie_vote_average);
         tvMovieSynosis = (TextView) findViewById(R.id.tv_movie_synopsis);
         ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
+        rvMovieVideos = (RecyclerView) findViewById(R.id.rv_movie_videos);
     }
 
     private void loadDataFromIntent() {
