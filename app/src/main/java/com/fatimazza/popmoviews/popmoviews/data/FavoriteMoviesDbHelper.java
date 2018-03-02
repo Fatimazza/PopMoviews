@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesContract.*;
+
 public class FavoriteMoviesDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "popmoviews.db";
@@ -16,7 +18,17 @@ public class FavoriteMoviesDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        final String SQL_CREATE_FAVMOVIES_TABLE =
+            "CREATE TABLE " + FavoriteMoviesEntry.TABLE_NAME + " (" +
+                FavoriteMoviesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                FavoriteMoviesEntry.COLUMN_MOVIE_ID + " TEXT NOT NULL, " +
+                FavoriteMoviesEntry.COLUMN_MOVIE_TITLE + " TEXT NOT NULL, " +
+                FavoriteMoviesEntry.COLUMN_MOVIE_VOTE + " TEXT, " +
+                FavoriteMoviesEntry.COLUMN_MOVIE_POSTER + " TEXT, " +
+                FavoriteMoviesEntry.COLUMN_MOVIE_OVERVIEW + " TEXT " +
+                "); ";
 
+        sqLiteDatabase.execSQL(SQL_CREATE_FAVMOVIES_TABLE);
     }
 
     @Override
