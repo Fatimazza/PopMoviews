@@ -33,7 +33,7 @@ public class FavoriteMoviesDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXIST " +FavoriteMoviesEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " +FavoriteMoviesEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }
