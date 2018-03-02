@@ -109,8 +109,12 @@ public class DatabaseTest {
         SQLiteDatabase database = dbHelper.getWritableDatabase();
 
         ContentValues testValues = new ContentValues();
-        testValues.put(FavoriteMoviesContract.FavoriteMoviesEntry.COLUMN_MOVIE_TITLE, "test name");
         testValues.put(FavoriteMoviesContract.FavoriteMoviesEntry.COLUMN_MOVIE_ID, 1212);
+        testValues.put(FavoriteMoviesContract.FavoriteMoviesEntry.COLUMN_MOVIE_TITLE, "title");
+        testValues.put(FavoriteMoviesContract.FavoriteMoviesEntry.COLUMN_MOVIE_VOTE, "4.5");
+        testValues.put(FavoriteMoviesContract.FavoriteMoviesEntry.COLUMN_MOVIE_POSTER, "poster.jpg");
+        testValues.put(FavoriteMoviesContract.FavoriteMoviesEntry.COLUMN_MOVIE_RELEASE, "12-12-12");
+        testValues.put(FavoriteMoviesContract.FavoriteMoviesEntry.COLUMN_MOVIE_OVERVIEW, "this is overview");
 
         /* Insert ContentValues into database and get first row ID back */
         long firstRowId = database.insert(
