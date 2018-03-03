@@ -10,9 +10,12 @@ import android.support.annotation.Nullable;
 
 public class FavoriteMoviesContentProvider extends ContentProvider {
 
+    private FavoriteMoviesDbHelper favoriteMoviesDbHelper;
+
     @Override
     public boolean onCreate() {
-        return false;
+        favoriteMoviesDbHelper = new FavoriteMoviesDbHelper(getContext());
+        return true;
     }
 
     @Nullable
