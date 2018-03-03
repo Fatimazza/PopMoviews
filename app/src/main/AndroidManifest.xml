@@ -29,6 +29,10 @@
                 android:value=".activity.MoviesActivity"
             />
         </activity>
+        <provider
+            android:authorities="com.fatimazza.popmoviews.popmoviews"
+            android:name="com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesContentProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>
