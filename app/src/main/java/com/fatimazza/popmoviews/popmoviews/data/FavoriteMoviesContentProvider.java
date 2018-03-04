@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesContract.*;
+
 import static com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesContract.FavoriteMoviesEntry.TABLE_NAME;
 
 public class FavoriteMoviesContentProvider extends ContentProvider {
@@ -54,8 +55,8 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues contentValues) {
-        final SQLiteDatabase db = favoriteMoviesDbHelper.getReadableDatabase();
 
+        final SQLiteDatabase db = favoriteMoviesDbHelper.getReadableDatabase();
         int match = sUriMatcher.match(uri);
         Uri returnUri;
 
@@ -80,7 +81,25 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+
+        final  SQLiteDatabase db = favoriteMoviesDbHelper.getReadableDatabase();
+        int match = sUriMatcher.match(uri);
+        int favMoviesDeleted;
+
+        switch (match) {
+            case FAVMOVIES_WITH_ID:
+                String id = uri.getPathSegments().get(1);
+                favMoviesDeleted = db.delete(TABLE_NAME, "_id=?", new String[]{id});
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
+        if (favMoviesDeleted != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        return favMoviesDeleted;
     }
 
     @Override
