@@ -8,6 +8,7 @@
 
     <string name="movie_videos">Videos</string>
     <string name="movie_reviews">Reviews</string>
+    <string name="movie_favorites">Favorite</string>
 
     <string name="item_movie_popular">Popular Movies</string>
     <string name="item_movie_top_rated">Top Rated Movies</string>
