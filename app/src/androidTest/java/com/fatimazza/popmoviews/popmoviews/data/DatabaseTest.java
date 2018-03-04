@@ -1,7 +1,5 @@
-package com.fatimazza.popmoviews.popmoviews;
+package com.fatimazza.popmoviews.popmoviews.data;
 
-import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesContract;
-import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesDbHelper;
 
 import org.junit.Before;
 import org.junit.Test;
