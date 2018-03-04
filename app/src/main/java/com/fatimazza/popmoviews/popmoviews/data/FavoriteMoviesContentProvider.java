@@ -70,7 +70,7 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return null;
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Nullable
@@ -126,6 +126,6 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection,
         String[] selectionArgs) {
-        return 0;
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }
