@@ -54,6 +54,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
     private List<MovieReviewDao> mDataReview = new ArrayList<>();
 
     private long movieId;
+    private boolean isFavorited;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
         setContentView(R.layout.activity_movie_detail);
 
         movieId = 0;
+        isFavorited = false;
 
         initComponent();
         initAdapters();
@@ -185,7 +187,19 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
     }
 
     public void onFavoriteClick(View view) {
-        ivFavoriteMovie.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_red_500_24dp));
+        isFavorited = !isFavorited;
+        markAsFavorite(isFavorited);
+
+    }
+
+    private void markAsFavorite(boolean isFavorited) {
+        int imageResourceId;
+        if (isFavorited) {
+            imageResourceId = R.drawable.ic_favorite_red_500_24dp;
+        } else {
+            imageResourceId = R.drawable.ic_favorite_white_24dp;
+        }
+        ivFavoriteMovie.setImageDrawable(ContextCompat.getDrawable(this, imageResourceId));
     }
 
     @Override
