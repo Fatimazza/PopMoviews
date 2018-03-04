@@ -110,7 +110,7 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
         switch (match) {
             case FAVMOVIES_WITH_ID:
                 String id = uri.getPathSegments().get(1);
-                favMoviesDeleted = db.delete(TABLE_NAME, "_id=?", new String[]{id});
+                favMoviesDeleted = db.delete(TABLE_NAME, FavoriteMoviesEntry.COLUMN_MOVIE_ID+"=?", new String[]{id});
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
