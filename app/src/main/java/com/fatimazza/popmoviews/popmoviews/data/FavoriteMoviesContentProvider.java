@@ -41,8 +41,8 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] strings, @Nullable String s,
-        @Nullable String[] strings1, @Nullable String s1) {
+    public Cursor query(@NonNull Uri uri, String[] projection, String selection,
+        String[] selectionArgs, String sortOrder) {
         return null;
     }
 
@@ -80,7 +80,7 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
 
         final  SQLiteDatabase db = favoriteMoviesDbHelper.getReadableDatabase();
         int match = sUriMatcher.match(uri);
@@ -103,8 +103,8 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s,
-        @Nullable String[] strings) {
+    public int update(@NonNull Uri uri, ContentValues values, String selection,
+        String[] selectionArgs) {
         return 0;
     }
 }
