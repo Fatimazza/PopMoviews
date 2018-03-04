@@ -56,7 +56,7 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues contentValues) {
 
-        final SQLiteDatabase db = favoriteMoviesDbHelper.getReadableDatabase();
+        final SQLiteDatabase db = favoriteMoviesDbHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
         Uri returnUri;
 
@@ -82,7 +82,7 @@ public class FavoriteMoviesContentProvider extends ContentProvider {
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
 
-        final  SQLiteDatabase db = favoriteMoviesDbHelper.getReadableDatabase();
+        final  SQLiteDatabase db = favoriteMoviesDbHelper.getWritableDatabase();
         int match = sUriMatcher.match(uri);
         int favMoviesDeleted;
 
