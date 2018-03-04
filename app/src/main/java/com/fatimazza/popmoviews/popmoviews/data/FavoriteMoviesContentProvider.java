@@ -3,14 +3,31 @@ package com.fatimazza.popmoviews.popmoviews.data;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesContract.*;
+
 public class FavoriteMoviesContentProvider extends ContentProvider {
 
     private FavoriteMoviesDbHelper favoriteMoviesDbHelper;
+
+    public static final int FAVMOVIES = 100;
+    public static final int FAVMOVIES_WITH_ID = 101;
+
+    public static final UriMatcher sUriMatcher = buildUriMatcher();
+
+    public static UriMatcher buildUriMatcher() {
+        UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        uriMatcher.addURI(FavoriteMoviesContract.AUTHORITY,
+            FavoriteMoviesContract.PATH_FAV_MOVIES, FAVMOVIES);
+        uriMatcher.addURI(FavoriteMoviesContract.AUTHORITY,
+            FavoriteMoviesContract.PATH_FAV_MOVIES + "/#", FAVMOVIES_WITH_ID);
+        return uriMatcher;
+    }
 
     @Override
     public boolean onCreate() {
