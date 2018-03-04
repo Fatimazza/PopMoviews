@@ -4,6 +4,8 @@ import com.fatimazza.popmoviews.popmoviews.BuildConfig;
 import com.fatimazza.popmoviews.popmoviews.R;
 import com.fatimazza.popmoviews.popmoviews.adapter.MovieReviewsAdapter;
 import com.fatimazza.popmoviews.popmoviews.adapter.MovieVideosAdapter;
+import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesDbHelper;
+import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesDbManager;
 import com.fatimazza.popmoviews.popmoviews.network.BaseListDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieReviewDao;
@@ -55,6 +57,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
 
     private long movieId;
     private boolean isFavorited;
+
+    private MovieDetailDao mMovieDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +114,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
     private void loadDataFromIntent() {
         Intent intent = getIntent();
         if (null != intent && intent.hasExtra(EXTRA_DETAIL)) {
-            MovieDetailDao mMovieDetail = intent.getParcelableExtra(EXTRA_DETAIL);
+            mMovieDetail = intent.getParcelableExtra(EXTRA_DETAIL);
             tvMovieTitle.setText(mMovieDetail.getTitle());
             tvMovieReleaseDate.setText(mMovieDetail.getRelease_date());
             tvMovieVoteAverage.setText(String.valueOf(mMovieDetail.getVote_average()));
@@ -196,8 +200,10 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
         int imageResourceId;
         if (isFavorited) {
             imageResourceId = R.drawable.ic_favorite_red_500_24dp;
+            FavoriteMoviesDbManager.insertFavoriteMovie(this, mMovieDetail);
         } else {
             imageResourceId = R.drawable.ic_favorite_white_24dp;
+            FavoriteMoviesDbManager.deleteFavoriteMovie(this, String.valueOf(mMovieDetail.getId()));
         }
         ivFavoriteMovie.setImageDrawable(ContextCompat.getDrawable(this, imageResourceId));
     }
