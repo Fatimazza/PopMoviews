@@ -14,11 +14,13 @@ import com.squareup.picasso.Picasso;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +40,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
     private TextView tvMovieVoteAverage;
     private TextView tvMovieSynosis;
     private ImageView ivMoviePoster;
+
+    private ImageView ivFavoriteMovie;
 
     private RecyclerView rvMovieVideos;
     private MovieVideosAdapter mMovieVideosAdapter;
@@ -71,6 +75,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
         tvMovieVoteAverage = (TextView) findViewById(R.id.tv_movie_vote_average);
         tvMovieSynosis = (TextView) findViewById(R.id.tv_movie_synopsis);
         ivMoviePoster = (ImageView) findViewById(R.id.iv_movie_poster);
+        ivFavoriteMovie = (ImageView) findViewById(R.id.iv_favorite);
         rvMovieVideos = (RecyclerView) findViewById(R.id.rv_movie_videos);
         rvMovieReviews = (RecyclerView) findViewById(R.id.rv_movie_reviews);
     }
@@ -177,6 +182,10 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
                     //hide loading Indicator
                 }
             });
+    }
+
+    public void onFavoriteClick(View view) {
+        ivFavoriteMovie.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_red_500_24dp));
     }
 
     @Override
