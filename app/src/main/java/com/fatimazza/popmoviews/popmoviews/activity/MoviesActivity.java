@@ -73,11 +73,14 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     }
 
     private void loadMoviesData() {
-        if (!isOnline()){
-            showErrorMessage();
-        } else {
-            showMoviesGridView();
+        if (mMovieType.equals(getResources().getString(R.string.item_movie_favorites))) {
             callAPI(mMovieType);
+        } else {
+            if (isOnline()) {
+                callAPI(mMovieType);
+            } else {
+                showErrorMessage();
+            }
         }
     }
 
