@@ -35,8 +35,6 @@ import retrofit2.Response;
 
 public class MovieDetailActivity extends AppCompatActivity implements MovieVideosAdapter.ItemsClickListener{
 
-    public static final String EXTRA_DETAIL = "movie_detail";
-
     private TextView tvMovieTitle;
     private TextView tvMovieReleaseDate;
     private TextView tvMovieVoteAverage;
@@ -66,7 +64,6 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
         setContentView(R.layout.activity_movie_detail);
 
         movieId = 0;
-        isFavorited = false;
 
         initComponent();
         initAdapters();
@@ -113,12 +110,19 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
 
     private void loadDataFromIntent() {
         Intent intent = getIntent();
-        if (null != intent && intent.hasExtra(EXTRA_DETAIL)) {
-            mMovieDetail = intent.getParcelableExtra(EXTRA_DETAIL);
+        if (null != intent
+            && intent.hasExtra(Constant.EXTRA_DETAIL)
+            && intent.hasExtra(Constant.EXTRA_IS_FAVORITED)) {
+
+            mMovieDetail = intent.getParcelableExtra(Constant.EXTRA_DETAIL);
             tvMovieTitle.setText(mMovieDetail.getTitle());
             tvMovieReleaseDate.setText(mMovieDetail.getRelease_date());
             tvMovieVoteAverage.setText(String.valueOf(mMovieDetail.getVote_average()));
             tvMovieSynosis.setText(mMovieDetail.getOverview());
+
+            isFavorited = intent.getBooleanExtra(Constant.EXTRA_IS_FAVORITED, false);
+
+            markAsFavorite(isFavorited);
 
             String imagePath = Constant.MOVIES_POSTER_BASE_URL + mMovieDetail.getPoster_path();
 
@@ -200,7 +204,9 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
         int imageResourceId;
         if (isFavorited) {
             imageResourceId = R.drawable.ic_favorite_red_500_24dp;
-            FavoriteMoviesDbManager.insertFavoriteMovie(this, mMovieDetail);
+            if (!FavoriteMoviesDbManager.isFavorited(this, String.valueOf(mMovieDetail.getId()))) {
+                FavoriteMoviesDbManager.insertFavoriteMovie(this, mMovieDetail);
+            }
         } else {
             imageResourceId = R.drawable.ic_favorite_white_24dp;
             FavoriteMoviesDbManager.deleteFavoriteMovie(this, String.valueOf(mMovieDetail.getId()));

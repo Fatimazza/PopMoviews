@@ -13,4 +13,8 @@ public class Constant {
 
     public final static String YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
 
+    public static final String EXTRA_DETAIL = "movie_detail";
+
+    public static final String EXTRA_IS_FAVORITED = "movie_favorite";
+
 }

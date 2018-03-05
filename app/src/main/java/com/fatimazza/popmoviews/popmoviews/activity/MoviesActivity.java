@@ -9,6 +9,7 @@ import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesDbManager;
 import com.fatimazza.popmoviews.popmoviews.network.BaseListDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.fatimazza.popmoviews.popmoviews.network.RetrofitHelper;
+import com.fatimazza.popmoviews.popmoviews.utils.Constant;
 
 import android.content.Context;
 import android.content.Intent;
@@ -181,9 +182,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     @Override
     public void onGridItemsClickListener(Context context, MovieDetailDao movieDetail) {
+        Boolean isFavorited = FavoriteMoviesDbManager.isFavorited(
+            this, String.valueOf(movieDetail.getId()));
         Class classDestination = MovieDetailActivity.class;
         Intent intent = new Intent(context, classDestination);
-        intent.putExtra(MovieDetailActivity.EXTRA_DETAIL, movieDetail);
+        intent.putExtra(Constant.EXTRA_DETAIL, movieDetail);
+        intent.putExtra(Constant.EXTRA_IS_FAVORITED, isFavorited);
         startActivity(intent);
     }
 
