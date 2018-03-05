@@ -4,7 +4,6 @@ import com.fatimazza.popmoviews.popmoviews.BuildConfig;
 import com.fatimazza.popmoviews.popmoviews.R;
 import com.fatimazza.popmoviews.popmoviews.adapter.MovieReviewsAdapter;
 import com.fatimazza.popmoviews.popmoviews.adapter.MovieVideosAdapter;
-import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesDbHelper;
 import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesDbManager;
 import com.fatimazza.popmoviews.popmoviews.network.BaseListDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
@@ -12,7 +11,7 @@ import com.fatimazza.popmoviews.popmoviews.network.MovieReviewDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieVideoDao;
 import com.fatimazza.popmoviews.popmoviews.network.RetrofitHelper;
 import com.fatimazza.popmoviews.popmoviews.utils.Constant;
-import com.squareup.picasso.Picasso;
+import com.fatimazza.popmoviews.popmoviews.utils.PicassoCacheHelper;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -126,7 +125,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieVideo
 
             String imagePath = Constant.MOVIES_POSTER_BASE_URL + mMovieDetail.getPoster_path();
 
-            Picasso.with(this)
+            PicassoCacheHelper
+                .getInstance(this)
                 .load(imagePath)
                 .placeholder(R.color.grey)
                 .error(R.color.grey)
