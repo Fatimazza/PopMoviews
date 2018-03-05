@@ -147,9 +147,14 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     private void loadFavoriteMoviesFromDatabase() {
         Uri mUri = FavoriteMoviesContract.FavoriteMoviesEntry.CONTENT_URI;
-        FavoriteMoviesDbManager.readFavoriteMovie(
-            getContentResolver().query(
+        List<MovieDetailDao> mMovieData = FavoriteMoviesDbManager
+            .readFavoriteMovie(getContentResolver().query(
                 mUri, null, null, null, null));
+        mDataMovies.clear();
+        mDataMovies.addAll(mMovieData);
+        mMoviesAdapter.notifyDataSetChanged();
+        showMoviesGridView();
+        mLoadingIndicator.setVisibility(View.GONE);
     }
 
     private boolean isOnline() {
