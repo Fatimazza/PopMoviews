@@ -4,6 +4,8 @@ package com.fatimazza.popmoviews.popmoviews.activity;
 import com.fatimazza.popmoviews.popmoviews.BuildConfig;
 import com.fatimazza.popmoviews.popmoviews.adapter.MoviesAdapter;
 import com.fatimazza.popmoviews.popmoviews.R;
+import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesContract;
+import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesDbManager;
 import com.fatimazza.popmoviews.popmoviews.network.BaseListDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.fatimazza.popmoviews.popmoviews.network.RetrofitHelper;
@@ -12,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -84,7 +87,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         } else if (movieType.equals(getResources().getString(R.string.item_movie_top_rated))) {
             loadTopRatedMovies();
         } else if (movieType.equals(getResources().getString(R.string.item_movie_favorites))) {
-            //load Favorite Movies from database
+            loadFavoriteMoviesFromDatabase();
         }
     }
 
@@ -140,6 +143,13 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                     mLoadingIndicator.setVisibility(View.GONE);
                 }
             });
+    }
+
+    private void loadFavoriteMoviesFromDatabase() {
+        Uri mUri = FavoriteMoviesContract.FavoriteMoviesEntry.CONTENT_URI;
+        FavoriteMoviesDbManager.readFavoriteMovie(
+            getContentResolver().query(
+                mUri, null, null, null, null));
     }
 
     private boolean isOnline() {
