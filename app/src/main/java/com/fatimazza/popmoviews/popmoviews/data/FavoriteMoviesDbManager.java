@@ -99,4 +99,19 @@ public class FavoriteMoviesDbManager {
         }
     }
 
+    public static boolean isFavorited(Context context, String id) {
+
+        boolean isFavorited;
+
+        Uri selectUri = FavoriteMoviesContract.FavoriteMoviesEntry.CONTENT_URI;
+        String selection = FavoriteMoviesContract.FavoriteMoviesEntry.COLUMN_MOVIE_ID +"=?";
+        String[] selectionArgs = new String[]{id};
+
+        Cursor queryCursor = context.getContentResolver()
+            .query(selectUri, null, selection, selectionArgs, null);
+        isFavorited = queryCursor.getCount()==1;
+
+        return isFavorited;
+    }
+
 }
