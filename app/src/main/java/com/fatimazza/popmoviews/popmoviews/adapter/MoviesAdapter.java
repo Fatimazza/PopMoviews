@@ -3,6 +3,7 @@ package com.fatimazza.popmoviews.popmoviews.adapter;
 import com.fatimazza.popmoviews.popmoviews.R;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.fatimazza.popmoviews.popmoviews.utils.Constant;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import android.content.Context;
@@ -49,8 +50,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
 
         String imagePath = Constant.MOVIES_POSTER_BASE_URL + mDataItemMovie.getPoster_path();
 
-        Picasso.with(context)
+        Picasso
+            .with(context)
             .load(imagePath)
+            .networkPolicy(NetworkPolicy.OFFLINE)
             .placeholder(R.color.grey)
             .error(R.color.grey)
             .into(holder.mMovieThumbnail);
