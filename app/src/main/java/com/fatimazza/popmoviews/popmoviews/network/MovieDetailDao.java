@@ -37,6 +37,34 @@ public class MovieDetailDao implements Parcelable {
         return overview;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setVote_average(double vote_average) {
+        this.vote_average = vote_average;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPoster_path(String poster_path) {
+        this.poster_path = poster_path;
+    }
+
+    public void setRelease_date(String release_date) {
+        this.release_date = release_date;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public MovieDetailDao() {
+
+    }
+
     private MovieDetailDao(Parcel in) {
         id = in.readLong();
         vote_average = in.readDouble();
