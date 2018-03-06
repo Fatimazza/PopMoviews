@@ -56,6 +56,14 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         loadMoviesData();
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (mMovieType.equals(getResources().getString(R.string.item_movie_favorites))) {
+            loadFavoriteMoviesFromDatabase();
+        }
+    }
+
     private void initComponent() {
         mMoviesRecyclerView = (RecyclerView) findViewById(R.id.rvMovies);
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
