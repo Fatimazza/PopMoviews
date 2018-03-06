@@ -44,6 +44,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     private List<MovieDetailDao> mDataMovies = new ArrayList<>();
 
+    BaseListDao<MovieDetailDao> mMovieDetail = new BaseListDao<>();
+
     private String mMovieType;
 
     @Override
@@ -53,7 +55,28 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         mMovieType = getResources().getString(R.string.item_movie_popular);
 
         initComponent();
-        loadMoviesData();
+
+        if (savedInstanceState != null
+            && savedInstanceState.containsKey(Constant.SAVE_INSTANCE_HOME)
+            && savedInstanceState.containsKey(Constant.SAVE_INSTANCE_SORTBY)) {
+            loadSavedInstanceState(savedInstanceState);
+        } else {
+            loadMoviesData();
+        }
+    }
+
+    private void loadSavedInstanceState(Bundle savedInstanceState) {
+        String sortByState = savedInstanceState.getString(Constant.SAVE_INSTANCE_SORTBY);
+
+        if (sortByState.equals(
+            getResources().getString(R.string.item_movie_favorites))){
+            loadFavoriteMoviesFromDatabase();
+        } else {
+            mMovieDetail = savedInstanceState.getParcelable(Constant.SAVE_INSTANCE_HOME);
+            mDataMovies.clear();
+            mDataMovies.addAll(mMovieDetail.getResults());
+            mMoviesAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -115,6 +138,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                         mDataMovies.addAll(response.body().getResults());
                         mMoviesAdapter.notifyDataSetChanged();
                         showMoviesGridView();
+                        mMovieDetail = response.body();
                     } else {
                         showErrorMessage();
                     }
@@ -142,6 +166,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                         mDataMovies.addAll(response.body().getResults());
                         mMoviesAdapter.notifyDataSetChanged();
                         showMoviesGridView();
+                        mMovieDetail = response.body();
                     } else {
                         showErrorMessage();
                     }
@@ -225,5 +250,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(Constant.SAVE_INSTANCE_HOME, mMovieDetail);
+        outState.putString(Constant.SAVE_INSTANCE_SORTBY, mMovieType);
     }
 }
