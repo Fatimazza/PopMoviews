@@ -4,14 +4,18 @@ package com.fatimazza.popmoviews.popmoviews.activity;
 import com.fatimazza.popmoviews.popmoviews.BuildConfig;
 import com.fatimazza.popmoviews.popmoviews.adapter.MoviesAdapter;
 import com.fatimazza.popmoviews.popmoviews.R;
-import com.fatimazza.popmoviews.popmoviews.network.MovieDao;
+import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesContract;
+import com.fatimazza.popmoviews.popmoviews.data.FavoriteMoviesDbManager;
+import com.fatimazza.popmoviews.popmoviews.network.BaseListDao;
 import com.fatimazza.popmoviews.popmoviews.network.MovieDetailDao;
 import com.fatimazza.popmoviews.popmoviews.network.RetrofitHelper;
+import com.fatimazza.popmoviews.popmoviews.utils.Constant;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -40,6 +44,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     private List<MovieDetailDao> mDataMovies = new ArrayList<>();
 
+    BaseListDao<MovieDetailDao> mMovieDetail = new BaseListDao<>();
+
     private String mMovieType;
 
     @Override
@@ -49,7 +55,36 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         mMovieType = getResources().getString(R.string.item_movie_popular);
 
         initComponent();
-        loadMoviesData();
+
+        if (savedInstanceState != null
+            && savedInstanceState.containsKey(Constant.SAVE_INSTANCE_HOME)
+            && savedInstanceState.containsKey(Constant.SAVE_INSTANCE_SORTBY)) {
+            loadSavedInstanceState(savedInstanceState);
+        } else {
+            loadMoviesData();
+        }
+    }
+
+    private void loadSavedInstanceState(Bundle savedInstanceState) {
+        String sortByState = savedInstanceState.getString(Constant.SAVE_INSTANCE_SORTBY);
+
+        if (sortByState.equals(
+            getResources().getString(R.string.item_movie_favorites))){
+            loadFavoriteMoviesFromDatabase();
+        } else {
+            mMovieDetail = savedInstanceState.getParcelable(Constant.SAVE_INSTANCE_HOME);
+            mDataMovies.clear();
+            mDataMovies.addAll(mMovieDetail.getResults());
+            mMoviesAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        if (mMovieType.equals(getResources().getString(R.string.item_movie_favorites))) {
+            loadFavoriteMoviesFromDatabase();
+        }
     }
 
     private void initComponent() {
@@ -69,11 +104,14 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     }
 
     private void loadMoviesData() {
-        if (!isOnline()){
-            showErrorMessage();
-        } else {
-            showMoviesGridView();
+        if (mMovieType.equals(getResources().getString(R.string.item_movie_favorites))) {
             callAPI(mMovieType);
+        } else {
+            if (isOnline()) {
+                callAPI(mMovieType);
+            } else {
+                showErrorMessage();
+            }
         }
     }
 
@@ -83,20 +121,24 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
             loadPopularMovies();
         } else if (movieType.equals(getResources().getString(R.string.item_movie_top_rated))) {
             loadTopRatedMovies();
+        } else if (movieType.equals(getResources().getString(R.string.item_movie_favorites))) {
+            loadFavoriteMoviesFromDatabase();
         }
     }
 
     private void loadPopularMovies() {
         RetrofitHelper.getInstance().getMoviesServices()
             .fetchPopularMovies(BuildConfig.API_KEY)
-            .enqueue(new Callback<MovieDao>() {
+            .enqueue(new Callback<BaseListDao<MovieDetailDao>>() {
                 @Override
-                public void onResponse(Call<MovieDao> call, Response<MovieDao> response) {
+                public void onResponse(Call<BaseListDao<MovieDetailDao>> call,
+                    Response<BaseListDao<MovieDetailDao>> response) {
                     if (response.body() != null) {
                         mDataMovies.clear();
                         mDataMovies.addAll(response.body().getResults());
                         mMoviesAdapter.notifyDataSetChanged();
                         showMoviesGridView();
+                        mMovieDetail = response.body();
                     } else {
                         showErrorMessage();
                     }
@@ -104,7 +146,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                 }
 
                 @Override
-                public void onFailure(Call<MovieDao> call, Throwable t) {
+                public void onFailure(Call<BaseListDao<MovieDetailDao>> call, Throwable t) {
                     Log.d("retroFailure ", t.getMessage());
                     showErrorMessage();
                     mLoadingIndicator.setVisibility(View.GONE);
@@ -115,14 +157,16 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
     private void loadTopRatedMovies() {
         RetrofitHelper.getInstance().getMoviesServices()
             .fetchTopRatedMovies(BuildConfig.API_KEY)
-            .enqueue(new Callback<MovieDao>() {
+            .enqueue(new Callback<BaseListDao<MovieDetailDao>>() {
                 @Override
-                public void onResponse(Call<MovieDao> call, Response<MovieDao> response) {
+                public void onResponse(Call<BaseListDao<MovieDetailDao>> call,
+                    Response<BaseListDao<MovieDetailDao>> response) {
                     if (response.body() != null) {
                         mDataMovies.clear();
                         mDataMovies.addAll(response.body().getResults());
                         mMoviesAdapter.notifyDataSetChanged();
                         showMoviesGridView();
+                        mMovieDetail = response.body();
                     } else {
                         showErrorMessage();
                     }
@@ -130,12 +174,24 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                 }
 
                 @Override
-                public void onFailure(Call<MovieDao> call, Throwable t) {
+                public void onFailure(Call<BaseListDao<MovieDetailDao>> call, Throwable t) {
                     Log.d("retroFailure ", t.getMessage());
                     showErrorMessage();
                     mLoadingIndicator.setVisibility(View.GONE);
                 }
             });
+    }
+
+    private void loadFavoriteMoviesFromDatabase() {
+        Uri mUri = FavoriteMoviesContract.FavoriteMoviesEntry.CONTENT_URI;
+        List<MovieDetailDao> mMovieData = FavoriteMoviesDbManager
+            .readFavoriteMovie(getContentResolver().query(
+                mUri, null, null, null, null));
+        mDataMovies.clear();
+        mDataMovies.addAll(mMovieData);
+        mMoviesAdapter.notifyDataSetChanged();
+        showMoviesGridView();
+        mLoadingIndicator.setVisibility(View.GONE);
     }
 
     private boolean isOnline() {
@@ -162,9 +218,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
 
     @Override
     public void onGridItemsClickListener(Context context, MovieDetailDao movieDetail) {
+        Boolean isFavorited = FavoriteMoviesDbManager.isFavorited(
+            this, String.valueOf(movieDetail.getId()));
         Class classDestination = MovieDetailActivity.class;
         Intent intent = new Intent(context, classDestination);
-        intent.putExtra(MovieDetailActivity.EXTRA_DETAIL, movieDetail);
+        intent.putExtra(Constant.EXTRA_DETAIL, movieDetail);
+        intent.putExtra(Constant.EXTRA_IS_FAVORITED, isFavorited);
         startActivity(intent);
     }
 
@@ -185,7 +244,18 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
                 mMovieType = getResources().getString(R.string.item_movie_top_rated);
                 loadMoviesData();
                 return true;
+            case R.id.action_sortby_favorites:
+                mMovieType = getResources().getString(R.string.item_movie_favorites);
+                loadMoviesData();
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(Constant.SAVE_INSTANCE_HOME, mMovieDetail);
+        outState.putString(Constant.SAVE_INSTANCE_SORTBY, mMovieType);
     }
 }
