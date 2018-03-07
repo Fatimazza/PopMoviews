@@ -72,9 +72,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MoviesAdap
         public MoviesAdapterViewHolder(View itemView) {
             super(itemView);
             mViewRoot = itemView;
-            mMovieTitle = itemView.findViewById(R.id.tv_grid_movies_title);
-            mMovieThumbnail = itemView.findViewById(R.id.iv_grid_movies_thumbnail);
-            mMovieVoteAverage = itemView.findViewById(R.id.tv_grid_movies_vote_average);
+            mMovieTitle = (TextView) itemView.findViewById(R.id.tv_grid_movies_title);
+            mMovieThumbnail = (ImageView) itemView.findViewById(R.id.iv_grid_movies_thumbnail);
+            mMovieVoteAverage = (TextView) itemView.findViewById(R.id.tv_grid_movies_vote_average);
             itemView.setOnClickListener(this);
         }
 

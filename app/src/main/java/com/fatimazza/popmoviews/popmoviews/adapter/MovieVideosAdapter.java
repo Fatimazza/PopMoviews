@@ -72,8 +72,8 @@ public class MovieVideosAdapter extends RecyclerView.Adapter<MovieVideosAdapter.
         public MovieVideosAdapterViewHolder(View itemView) {
             super(itemView);
             mViewRoot = itemView;
-            mVideoTitle = itemView.findViewById(R.id.tv_video_title);
-            mVideoThumbnail = itemView.findViewById(R.id.iv_video_thumbnail);
+            mVideoTitle = (TextView) itemView.findViewById(R.id.tv_video_title);
+            mVideoThumbnail = (ImageView) itemView.findViewById(R.id.iv_video_thumbnail);
             mViewRoot.setOnClickListener(this);
         }
 

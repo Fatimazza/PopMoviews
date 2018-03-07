@@ -53,8 +53,8 @@ public class MovieReviewsAdapter extends RecyclerView.Adapter<MovieReviewsAdapte
 
         public MovieReviewsAdapterViewHolder(View itemView) {
             super(itemView);
-            mVideoReview = itemView.findViewById(R.id.tv_movie_review);
-            mVideoReviewAuthor = itemView.findViewById(R.id.tv_movie_review_author);
+            mVideoReview = (TextView) itemView.findViewById(R.id.tv_movie_review);
+            mVideoReviewAuthor = (TextView) itemView.findViewById(R.id.tv_movie_review_author);
         }
     }
 
