@@ -59,6 +59,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         if (savedInstanceState != null
             && savedInstanceState.containsKey(Constant.SAVE_INSTANCE_HOME)
             && savedInstanceState.containsKey(Constant.SAVE_INSTANCE_SORTBY)) {
+            mMovieType = savedInstanceState
+                .getString(Constant.SAVE_INSTANCE_SORTBY);
             loadSavedInstanceState(savedInstanceState);
         } else {
             loadMoviesData();
