@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -94,15 +95,24 @@ public class MoviesActivity extends AppCompatActivity implements MoviesAdapter.G
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loading_indicator);
         mTextErrorMessage = (TextView) findViewById(R.id.tv_error_message_display);
 
-        int numOfGridColumns = 3;
         GridLayoutManager layoutManager =
-            new GridLayoutManager(this, numOfGridColumns, GridLayoutManager.VERTICAL, false);
+            new GridLayoutManager(this, numberOfColumns(), GridLayoutManager.VERTICAL, false);
 
         mMoviesRecyclerView.setLayoutManager(layoutManager);
         mMoviesRecyclerView.setHasFixedSize(true);
 
         mMoviesAdapter = new MoviesAdapter(this, mDataMovies);
         mMoviesRecyclerView.setAdapter(mMoviesAdapter);
+    }
+
+    private int numberOfColumns() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int widthDivider = 400;
+        int width = displayMetrics.widthPixels;
+        int nColumns = width / widthDivider;
+        if (nColumns < 2) return 2;
+        return nColumns;
     }
 
     private void loadMoviesData() {
